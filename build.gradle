@@ -1,0 +1,23 @@
+subprojects {
+
+    buildscript {
+        repositories {
+            mavenCentral()
+            mavenLocal()
+        }
+
+        dependencies {
+            classpath 'com.android.tools.build:gradle:0.7+'
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    task wrapper(type: Wrapper) {
+        gradleVersion = '1.9'
+    }
+
+}
