@@ -14,3 +14,23 @@ android {
     buildToolsVersion "19"
     compileSdkVersion 19
 }
+
+task sourcesJar(type: Jar) {
+  classifier = 'sources'
+  from android.sourceSets.main.java
+}
+
+task jar(type: Jar) {
+  from 'build/classes/release'
+}
+
+task javadocJar(type: Jar, dependsOn: "javadocRelease") {
+  classifier = 'javadoc'
+  from 'build/docs/javadoc'
+}
+
+artifacts {
+  archives sourcesJar
+  archives javadocJar
+  archives jar
+}
