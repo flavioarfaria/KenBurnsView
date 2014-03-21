@@ -50,8 +50,16 @@ public class KenBurnsView extends ImageView {
     /** The rect that holds the bounds of the current {@link Drawable}. */
     private final RectF mDrawableRect = new RectF();
 
-    /** The time, in milliseconds, that the current transition started. */
-    private long mTransitionStartTime;
+    /** The progress of the animation, in milliseconds. */
+    private long mElapsedTime;
+
+    /** The time, in milliseconds, of the last animation frame.
+     * This is useful to increment {@link #mElapsedTime} regardless
+     * of the amount of time the animation has been paused. */
+    private long mLastFrameTime;
+
+    /** Controls whether the the animation is running. */
+    private boolean mPaused;
 
     /** Controls whether the image must be center-cropped or not. */
     private boolean mCenterCrop;
@@ -92,6 +100,22 @@ public class KenBurnsView extends ImageView {
 
 
     @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
+        /* When not visible, onDraw() doesn't get called,
+           but the time elapses anyway. */
+        switch (visibility) {
+            case VISIBLE:
+                resume();
+                break;
+            default:
+                pause();
+                break;
+        }
+    }
+
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         updateViewPort(w, h);
@@ -100,46 +124,49 @@ public class KenBurnsView extends ImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Drawable d = getDrawable();
-        updateDrawableBounds();
+        if (!mPaused) {
+            Drawable d = getDrawable();
+            updateDrawableBounds();
 
-        if (d != null) { // No drawable to animate? We're done for now.
-            if (mCurrentTrans == null) { // Starting the first transition.
-                startNewTransition();
-            }
-
-            if (mCurrentTrans.getDestinyRect() != null) { // If null, it's supposed to stop.
-                long elapsedTime = System.currentTimeMillis() - mTransitionStartTime;
-                RectF currentRect = mCurrentTrans.getInterpolatedRect(elapsedTime);
-
-                float viewPortScale = getWidth() / (float) d.getIntrinsicWidth();
-                float currentRectScale = (getWidth() / currentRect.width()) * viewPortScale;
-
-                if (mCenterCrop) {
-                    float drawableRatio = Rects.getRectRatio(mDrawableRect);
-                    float viewPortRatio = Rects.getRectRatio(mViewportRect);
-                    if (viewPortRatio > drawableRatio) {
-                        currentRectScale *= mViewportRect.width() / d.getBounds().width();
-                    } else if (viewPortRatio < drawableRatio) {
-                        currentRectScale *= mViewportRect.height() / d.getBounds().height();
-                    }
-                }
-
-                /* Performs matrix transformations to fit the content
-                   of the current rect into the entire view. */
-                mMatrix.reset();
-                mMatrix.postTranslate(-d.getIntrinsicWidth() / 2, -d.getIntrinsicHeight() / 2);
-                mMatrix.postScale(currentRectScale, currentRectScale);
-                mMatrix.postTranslate(currentRect.centerX(), currentRect.centerY());
-
-                setImageMatrix(mMatrix);
-                postInvalidateDelayed(FRAME_DELAY);
-
-                // Current transition is over. It's time to start a new one.
-                if (elapsedTime >= mCurrentTrans.getDuration()) {
+            if (d != null) { // No drawable to animate? We're done for now.
+                if (mCurrentTrans == null) { // Starting the first transition.
                     startNewTransition();
                 }
+
+                if (mCurrentTrans.getDestinyRect() != null) { // If null, it's supposed to stop.
+                    mElapsedTime += System.currentTimeMillis() - mLastFrameTime;
+                    RectF currentRect = mCurrentTrans.getInterpolatedRect(mElapsedTime);
+
+                    float viewPortScale = getWidth() / (float) d.getIntrinsicWidth();
+                    float currentRectScale = (getWidth() / currentRect.width()) * viewPortScale;
+
+                    if (mCenterCrop) {
+                        float drawableRatio = Rects.getRectRatio(mDrawableRect);
+                        float viewPortRatio = Rects.getRectRatio(mViewportRect);
+                        if (viewPortRatio > drawableRatio) {
+                            currentRectScale *= mViewportRect.width() / d.getBounds().width();
+                        } else if (viewPortRatio < drawableRatio) {
+                            currentRectScale *= mViewportRect.height() / d.getBounds().height();
+                        }
+                    }
+
+                    /* Performs matrix transformations to fit the content
+                       of the current rect into the entire view. */
+                    mMatrix.reset();
+                    mMatrix.postTranslate(-d.getIntrinsicWidth() / 2, -d.getIntrinsicHeight() / 2);
+                    mMatrix.postScale(currentRectScale, currentRectScale);
+                    mMatrix.postTranslate(currentRect.centerX(), currentRect.centerY());
+
+                    setImageMatrix(mMatrix);
+                    postInvalidateDelayed(FRAME_DELAY);
+
+                    // Current transition is over. It's time to start a new one.
+                    if (mElapsedTime >= mCurrentTrans.getDuration()) {
+                        startNewTransition();
+                    }
+                }
             }
+            mLastFrameTime = System.currentTimeMillis();
         }
         super.onDraw(canvas);
     }
@@ -150,7 +177,8 @@ public class KenBurnsView extends ImageView {
      */
     private void startNewTransition() {
         mCurrentTrans = mTransGen.generateNextTransition(mViewportRect, mDrawableRect);
-        mTransitionStartTime = System.currentTimeMillis();
+        mElapsedTime = 0;
+        mLastFrameTime = System.currentTimeMillis();
     }
 
 
@@ -180,4 +208,24 @@ public class KenBurnsView extends ImageView {
     private void updateDrawableBounds() {
         mDrawableRect.set(getDrawable().getBounds());
     }
+
+
+    /**
+     * Pauses the Ken Burns Effect animation.
+     */
+    public void pause() {
+        mPaused = true;
+    }
+
+
+    /**
+     * Resumes the Ken Burns Effect animation.
+     */
+    public void resume() {
+        mPaused = false;
+        // This will make the animation to continue from where it stopped.
+        mLastFrameTime = System.currentTimeMillis();
+        invalidate();
+    }
+
 }
