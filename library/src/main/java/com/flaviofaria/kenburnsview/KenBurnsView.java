@@ -42,6 +42,10 @@ public class KenBurnsView extends ImageView {
      *  rects. The default {@link TransitionGenerator} is {@link RandomTransitionGenerator}. */
     private TransitionGenerator mTransGen = new RandomTransitionGenerator();
 
+    /** A {@link KenBurnsView.TransitionListener} to be notified when
+     *  a transition starts or ends. */
+    private TransitionListener mTransitionListener;
+
     /** The ongoing transition. */
     private Transition mCurrentTrans;
 
@@ -164,6 +168,8 @@ public class KenBurnsView extends ImageView {
                     if (mElapsedTime >= mCurrentTrans.getDuration()) {
                         startNewTransition();
                     }
+                } else { // Stopping? A stop event has to be fired.
+                    fireTransitionEnd(mCurrentTrans);
                 }
             }
             mLastFrameTime = System.currentTimeMillis();
@@ -176,9 +182,33 @@ public class KenBurnsView extends ImageView {
      * Generates and starts a transition.
      */
     private void startNewTransition() {
+        fireTransitionEnd(mCurrentTrans);
         mCurrentTrans = mTransGen.generateNextTransition(mViewportRect, mDrawableRect);
         mElapsedTime = 0;
         mLastFrameTime = System.currentTimeMillis();
+        fireTransitionStart(mCurrentTrans);
+    }
+
+
+    /**
+     * Fires a start event on {@link #mTransitionListener};
+     * @param transition the transition that just started.
+     */
+    private void fireTransitionStart(Transition transition) {
+        if (mTransitionListener != null && transition != null) {
+            mTransitionListener.onTransitionStart(transition);
+        }
+    }
+
+
+    /**
+     * Fires an end event on {@link #mTransitionListener};
+     * @param transition the transition that just ended.
+     */
+    private void fireTransitionEnd(Transition transition) {
+        if (mTransitionListener != null && transition != null) {
+            mTransitionListener.onTransitionEnd(transition);
+        }
     }
 
 
@@ -210,6 +240,11 @@ public class KenBurnsView extends ImageView {
     }
 
 
+    public void setTransitionListener(TransitionListener transitionListener) {
+        mTransitionListener = transitionListener;
+    }
+
+
     /**
      * Pauses the Ken Burns Effect animation.
      */
@@ -228,4 +263,21 @@ public class KenBurnsView extends ImageView {
         invalidate();
     }
 
+
+    /**
+     * A transition listener receives notifications when a transition starts or ends.
+     */
+    public interface TransitionListener {
+        /**
+         * Notifies the start of a transition.
+         * @param transition the transition that just started.
+         */
+        public void onTransitionStart(Transition transition);
+
+        /**
+         * Notifies the end of a transition.
+         * @param transition the transition that just ended.
+         */
+        public void onTransitionEnd(Transition transition);
+    }
 }
