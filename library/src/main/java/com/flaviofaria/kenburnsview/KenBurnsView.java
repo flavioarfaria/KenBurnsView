@@ -132,7 +132,8 @@ public class KenBurnsView extends ImageView {
             Drawable d = getDrawable();
             updateDrawableBounds();
 
-            if (d != null) { // No drawable to animate? We're done for now.
+            // No drawable to animate or bounds are yet to be set? We're done for now.
+            if (d != null && !mDrawableRect.isEmpty()) {
                 if (mCurrentTrans == null) { // Starting the first transition.
                     startNewTransition();
                 }
@@ -141,24 +142,42 @@ public class KenBurnsView extends ImageView {
                     mElapsedTime += System.currentTimeMillis() - mLastFrameTime;
                     RectF currentRect = mCurrentTrans.getInterpolatedRect(mElapsedTime);
 
-                    float viewPortScale = getWidth() / (float) d.getIntrinsicWidth();
-                    float currentRectScale = (getWidth() / currentRect.width()) * viewPortScale;
+                    float currentRectRatio = Rects.getRectRatio(currentRect);
+                    float drawableRectRatio = Rects.getRectRatio(mDrawableRect);
 
-                    if (mCenterCrop) {
-                        float drawableRatio = Rects.getRectRatio(mDrawableRect);
-                        float viewPortRatio = Rects.getRectRatio(mViewportRect);
-                        if (viewPortRatio > drawableRatio) {
-                            currentRectScale *= mViewportRect.width() / d.getBounds().width();
-                        } else if (viewPortRatio < drawableRatio) {
-                            currentRectScale *= mViewportRect.height() / d.getBounds().height();
+                    // Scale factor that fits the drawable into the viewport.
+                    float drwToVpScale;
+                    /* Scale factor that fulfils the viewport
+                       with the content inside the current rect. */
+                    float currRectToVpScale;
+                    /* Scale factor that makes the image appear center-cropped
+                       inside the current rect (if enabled). */
+                    float centerCropScale = 1;
+
+                    if (drawableRectRatio > currentRectRatio) {
+                        drwToVpScale = mViewportRect.width() / mDrawableRect.width();
+                        currRectToVpScale = mViewportRect.width() / currentRect.width();
+                        if (mCenterCrop) {
+                            // Image height after being resized to fit viewport.
+                            float drwToVpHeight = mDrawableRect.height() * drwToVpScale;
+                            centerCropScale = mViewportRect.height() / drwToVpHeight;
+                        }
+                    } else {
+                        drwToVpScale = mViewportRect.height() / mDrawableRect.height();
+                        currRectToVpScale = mViewportRect.height() / currentRect.height();
+                        if (mCenterCrop) {
+                            // Image width after being resized to fit viewport.
+                            float drwToVpWidth = mDrawableRect.width() * drwToVpScale;
+                            centerCropScale = mViewportRect.width() / drwToVpWidth;
                         }
                     }
+                    currRectToVpScale *= drwToVpScale * centerCropScale;
 
                     /* Performs matrix transformations to fit the content
                        of the current rect into the entire view. */
                     mMatrix.reset();
                     mMatrix.postTranslate(-d.getIntrinsicWidth() / 2, -d.getIntrinsicHeight() / 2);
-                    mMatrix.postScale(currentRectScale, currentRectScale);
+                    mMatrix.postScale(currRectToVpScale, currRectToVpScale);
                     mMatrix.postTranslate(currentRect.centerX(), currentRect.centerY());
 
                     setImageMatrix(mMatrix);
