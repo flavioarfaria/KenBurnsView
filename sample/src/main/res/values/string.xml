@@ -16,4 +16,6 @@
   -->
 <resources>
     <string name="app_name">KenBurnsViewDemo</string>
+    <string name="pause">Pause</string>
+    <string name="play">Play</string>
 </resources>

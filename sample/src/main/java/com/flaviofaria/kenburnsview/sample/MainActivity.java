@@ -15,39 +15,89 @@
  */
 package com.flaviofaria.kenburnsview.sample;
 
-import android.app.Activity;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.ViewSwitcher;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.flaviofaria.kenburnsview.Transition;
+
+import static com.flaviofaria.kenburnsview.KenBurnsView.TransitionListener;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends SherlockActivity implements TransitionListener {
+
+    private static final int TRANSITIONS_TO_SWITCH = 3;
+
+    private ViewSwitcher mViewSwitcher;
+
+    private boolean mPaused;
+    private int mTransitionsCount = 0;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 
-        Resources r = getResources();
+        mViewSwitcher = (ViewSwitcher) findViewById(R.id.viewSwitcher);
 
-        Drawable d = r.getDrawable(R.drawable.img1);
+        KenBurnsView img1 = (KenBurnsView) findViewById(R.id.img1);
+        img1.setTransitionListener(this);
 
-        int w = FrameLayout.LayoutParams.MATCH_PARENT;
-        int h = FrameLayout.LayoutParams.MATCH_PARENT;
+        KenBurnsView img2 = (KenBurnsView) findViewById(R.id.img2);
+        img2.setTransitionListener(this);
+    }
 
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(w, h);
 
-        KenBurnsView v = new KenBurnsView(this);
-        v.setLayoutParams(lp);
-        v.setImageDrawable(d);
-        v.setScaleType(ImageView.ScaleType.CENTER_CROP);
+    @Override
+    public void onTransitionStart(Transition transition) {
 
-        FrameLayout fl = new FrameLayout(this);
-        fl.addView(v);
-        setContentView(fl);
+    }
+
+
+    @Override
+    public void onTransitionEnd(Transition transition) {
+        mTransitionsCount++;
+        if (mTransitionsCount == TRANSITIONS_TO_SWITCH) {
+            mViewSwitcher.showNext();
+            mTransitionsCount = 0;
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem item = menu.findItem(R.id.playPause);
+        if (mPaused) {
+            item.setIcon(R.drawable.ic_media_play);
+            item.setTitle(R.string.play);
+        } else {
+            item.setIcon(R.drawable.ic_media_pause);
+            item.setTitle(R.string.pause);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.playPause:
+                KenBurnsView currentImage = (KenBurnsView) mViewSwitcher.getCurrentView();
+                if (mPaused) {
+                    currentImage.resume();
+                } else {
+                    currentImage.pause();
+                }
+                mPaused = !mPaused;
+                invalidateOptionsMenu();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
