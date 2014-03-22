@@ -30,7 +30,7 @@ class Rects {
     protected static float getRectRatio(RectF rect) {
         float ratio = rect.width() / rect.height();
         // Reduces precision to avoid problems when comparing aspect ratios.
-        ratio = Math.round(ratio * 1000) / 1000;
+        ratio = Math.round(ratio * 1000) / 1000f;
         return ratio;
     }
 }
