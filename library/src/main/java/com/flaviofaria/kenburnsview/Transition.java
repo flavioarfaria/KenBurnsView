@@ -45,7 +45,7 @@ public class Transition {
     private float mCenterYDiff;
 
     /** The duration of the transition in milliseconds. The default duration is 5000 ms. */
-    private long mDuration = 5000;
+    private long mDuration;
 
     /** The {@link Interpolator} used to perform the transitions between rects. */
     private Interpolator mInterpolator;
