@@ -21,9 +21,6 @@ import android.view.animation.Interpolator;
 
 public class Transition {
 
-    /** Default value for the transition duration. */
-    private static final int DEFAULT_DURATION = 5000;
-
     /** The rect the transition will start from. */
     private RectF mSrcRect;
 
@@ -49,11 +46,6 @@ public class Transition {
 
     /** The {@link Interpolator} used to perform the transitions between rects. */
     private Interpolator mInterpolator;
-
-
-    public Transition(RectF srcRect, RectF dstRect) {
-        this(srcRect, dstRect, DEFAULT_DURATION, new AccelerateDecelerateInterpolator());
-    }
 
 
     public Transition(RectF srcRect, RectF dstRect, long duration, Interpolator interpolator) {

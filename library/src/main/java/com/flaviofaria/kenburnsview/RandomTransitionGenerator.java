@@ -16,10 +16,15 @@
 package com.flaviofaria.kenburnsview;
 
 import android.graphics.RectF;
+import android.view.animation.Interpolator;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import java.util.Random;
 
 public class RandomTransitionGenerator implements TransitionGenerator {
+
+    /** Default value for the transition duration in milliseconds. */
+    public static final int DEFAULT_TRANSITION_DURATION = 10000;
 
     /** Minimum rect dimension factor, according to the maximum one. */
     private static final float MIN_RECT_FACTOR = 0.5f;
@@ -27,8 +32,21 @@ public class RandomTransitionGenerator implements TransitionGenerator {
     /** Random object used to generate arbitrary rects. */
     private final Random mRandom = new Random(System.currentTimeMillis());
 
+    /** The duration, in milliseconds, of each transition. */
+    private long mTransitionDuration;
+
     /** The last generated transition. */
     private Transition mLastGenTrans;
+
+
+    public RandomTransitionGenerator() {
+        this(DEFAULT_TRANSITION_DURATION);
+    }
+
+
+    public RandomTransitionGenerator(long transitionDuration) {
+        setTransitionDuration(transitionDuration);
+    }
 
 
     @Override
@@ -39,7 +57,9 @@ public class RandomTransitionGenerator implements TransitionGenerator {
         } else {
             srcRect = mLastGenTrans.getDestinyRect();
         }
-        mLastGenTrans = new Transition(srcRect, generateRandomRect(viewport, drawableBounds));
+        RectF dstRect = generateRandomRect(viewport, drawableBounds);
+        Interpolator interpolator = new AccelerateDecelerateInterpolator();
+        mLastGenTrans = new Transition(srcRect, dstRect, mTransitionDuration, interpolator);
         return mLastGenTrans;
     }
 
@@ -59,5 +79,14 @@ public class RandomTransitionGenerator implements TransitionGenerator {
         int left = widthDiff > 0 ? mRandom.nextInt(widthDiff) : 0;
         int top = heightDiff > 0 ? mRandom.nextInt(heightDiff) : 0;
         return new RectF(left, top, left + width, top + height);
+    }
+
+
+    /**
+     * Sets the duration, in milliseconds, for each transition generated.
+     * @param transitionDuration the transition duration.
+     */
+    public void setTransitionDuration(long transitionDuration) {
+        mTransitionDuration = transitionDuration;
     }
 }
