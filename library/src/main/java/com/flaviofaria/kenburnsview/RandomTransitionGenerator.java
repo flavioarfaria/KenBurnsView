@@ -68,14 +68,14 @@ public class RandomTransitionGenerator implements TransitionGenerator {
      * Generates a random rect in as scale that varies between
      * {@link #MIN_RECT_FACTOR} and 1. This scale is relative to {@code viewPortRect} and
      * will be 1 when {@code viewPortRect} and the generated rect are exactly the same dimensions.
-     * @return an arbitrary generated rect smaller or equals than {@link #mViewPortRect}.
+     * @return an arbitrary generated rect smaller or equals than {@code viewportRect}.
      */
-    private RectF generateRandomRect(RectF viewPortRect, RectF drawableBounds) {
+    private RectF generateRandomRect(RectF viewportRect, RectF drawableBounds) {
         float factor = MIN_RECT_FACTOR + (mRandom.nextFloat() / 2);
-        float width = factor * viewPortRect.width();
-        float height = factor * viewPortRect.height();
-        int widthDiff = (int) (viewPortRect.width() - width);
-        int heightDiff = (int) (viewPortRect.height() - height);
+        float width = factor * viewportRect.width();
+        float height = factor * viewportRect.height();
+        int widthDiff = (int) (viewportRect.width() - width);
+        int heightDiff = (int) (viewportRect.height() - height);
         int left = widthDiff > 0 ? mRandom.nextInt(widthDiff) : 0;
         int top = heightDiff > 0 ? mRandom.nextInt(heightDiff) : 0;
         return new RectF(left, top, left + width, top + height);
