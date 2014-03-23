@@ -29,15 +29,13 @@
             android:id="@+id/img1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/img1"
-            android:scaleType="centerCrop" />
+            android:src="@drawable/img1" />
 
         <com.flaviofaria.kenburnsview.KenBurnsView
             android:id="@+id/img2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/img2"
-            android:scaleType="centerCrop" />
+            android:src="@drawable/img2" />
 
     </ViewSwitcher>
 

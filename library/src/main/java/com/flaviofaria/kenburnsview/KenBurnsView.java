@@ -65,9 +65,6 @@ public class KenBurnsView extends ImageView {
     /** Controls whether the the animation is running. */
     private boolean mPaused;
 
-    /** Controls whether the image must be center-cropped or not. */
-    private boolean mCenterCrop;
-
 
     public KenBurnsView(Context context) {
         this(context, null);
@@ -88,18 +85,7 @@ public class KenBurnsView extends ImageView {
 
     @Override
     public void setScaleType(ScaleType scaleType) {
-        switch (scaleType) {
-            case CENTER_CROP:
-                mCenterCrop = true;
-                break;
-            case FIT_CENTER:
-                mCenterCrop = false;
-                break;
-            default:
-                String msg = "KenBurnsView only supports ScaleType.CENTER_CROP " +
-                        "and ScaleType.FIT_CENTER!";
-                throw new UnsupportedOperationException(msg);
-        }
+        // It'll always be center-cropped by default.
     }
 
 
@@ -152,24 +138,20 @@ public class KenBurnsView extends ImageView {
                     float currRectToVpScale;
                     /* Scale factor that makes the image appear center-cropped
                        inside the current rect (if enabled). */
-                    float centerCropScale = 1;
+                    float centerCropScale;
 
                     if (drawableRectRatio > currentRectRatio) {
                         drwToVpScale = mViewportRect.width() / mDrawableRect.width();
                         currRectToVpScale = mViewportRect.width() / currentRect.width();
-                        if (mCenterCrop) {
-                            // Image height after being resized to fit viewport.
-                            float drwToVpHeight = mDrawableRect.height() * drwToVpScale;
-                            centerCropScale = mViewportRect.height() / drwToVpHeight;
-                        }
+                        // Image height after being resized to fit viewport.
+                        float drwToVpHeight = mDrawableRect.height() * drwToVpScale;
+                        centerCropScale = mViewportRect.height() / drwToVpHeight;
                     } else {
                         drwToVpScale = mViewportRect.height() / mDrawableRect.height();
                         currRectToVpScale = mViewportRect.height() / currentRect.height();
-                        if (mCenterCrop) {
-                            // Image width after being resized to fit viewport.
-                            float drwToVpWidth = mDrawableRect.width() * drwToVpScale;
-                            centerCropScale = mViewportRect.width() / drwToVpWidth;
-                        }
+                        // Image width after being resized to fit viewport.
+                        float drwToVpWidth = mDrawableRect.width() * drwToVpScale;
+                        centerCropScale = mViewportRect.width() / drwToVpWidth;
                     }
                     currRectToVpScale *= drwToVpScale * centerCropScale;
 
