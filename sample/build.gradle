@@ -25,6 +25,18 @@ android {
     compileSdkVersion 19
 
     signingConfigs {
-        debug { }
+        release {}
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+
+            signingConfig.storeFile = file(keyStore)
+            signingConfig.storePassword = storePassword
+            signingConfig.keyAlias = keyAlias
+            signingConfig.keyPassword = keyPassword
+        }
     }
 }
+
+
