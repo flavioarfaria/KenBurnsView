@@ -70,30 +70,29 @@ public class RandomTransitionGenerator implements TransitionGenerator {
 
 
     /**
-     * Generates a random rect in a scale relative to {@code viewportRect} that varies between
-     * {@link #MIN_RECT_FACTOR} and 1. The generated rect will be used to delimit the area
-     * of a {@link Drawable} to be zoomed and panned.
+     * Generates a random rect that can be fully contained within {@code drawableBounds} and
+     * has the same aspect ratio of {@code viewportRect}. The dimensions of this random rect
+     * won't be higher than the largest rect with the same aspect ratio of {@code viewportRect}
+     * that {@code drawableBounds} can contain. They also won't be lower than the dimensions
+     * of this upper rect limit weighted by {@code MIN_RECT_FACTOR}.
      * @param drawableBounds the bounds of the drawable that will be zoomed and panned.
-     * @param viewportRect the bounds of the view in which the drawable will be shown.
-     *                     This is needed to generate a random rect with the same
-     *                     aspect ratio of it.
+     * @param viewportRect the bounds of the view that the drawable will be shown.
      * @return an arbitrary generated rect with the same aspect ratio of {@code viewportRect}
-     * that will be contained in {@code drawableBounds}.
+     * that will be contained within {@code drawableBounds}.
      */
     private RectF generateRandomRect(RectF drawableBounds, RectF viewportRect) {
-        RectF intersection = new RectF(viewportRect);
-        intersection.intersect(drawableBounds);
-
+        float drawableRatio = Rects.getRectRatio(drawableBounds);
         float viewportRectRatio = Rects.getRectRatio(viewportRect);
-        float intersectionRatio = Rects.getRectRatio(intersection);
         RectF maxCrop;
 
-        if (intersectionRatio > viewportRectRatio) {
-            int r = (int) ((intersection.height() / viewportRect.height()) * viewportRect.width());
-            maxCrop = new RectF(0, 0, r, intersection.height());
+        if (drawableRatio > viewportRectRatio) {
+            float r = (drawableBounds.height() / viewportRect.height()) * viewportRect.width();
+            float b = drawableBounds.height();
+            maxCrop = new RectF(0, 0, r, b);
         } else {
-            int b = (int) ((intersection.width() / viewportRect.width()) * viewportRect.height());
-            maxCrop = new RectF(0, 0, intersection.width(), b);
+            float r = drawableBounds.width();
+            float b = (drawableBounds.width() / viewportRect.width()) * viewportRect.height();
+            maxCrop = new RectF(0, 0, r, b);
         }
 
         float factor = MIN_RECT_FACTOR + ((1 - MIN_RECT_FACTOR) * mRandom.nextFloat());
