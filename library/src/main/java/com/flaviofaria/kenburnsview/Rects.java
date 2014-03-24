@@ -20,7 +20,7 @@ import android.graphics.RectF;
 /**
  * Helper class to perform rect computations.
  */
-class Rects {
+public class Rects {
 
     /**
      * Computes the aspect ratio of a given rect.
