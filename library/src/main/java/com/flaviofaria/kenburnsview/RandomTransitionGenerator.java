@@ -16,6 +16,7 @@
 package com.flaviofaria.kenburnsview;
 
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.view.animation.Interpolator;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -65,17 +66,38 @@ public class RandomTransitionGenerator implements TransitionGenerator {
 
 
     /**
-     * Generates a random rect in as scale that varies between
-     * {@link #MIN_RECT_FACTOR} and 1. This scale is relative to {@code viewPortRect} and
-     * will be 1 when {@code viewPortRect} and the generated rect are exactly the same dimensions.
-     * @return an arbitrary generated rect smaller or equals than {@code viewportRect}.
+     * Generates a random rect in a scale relative to {@code viewportRect} that varies between
+     * {@link #MIN_RECT_FACTOR} and 1. The generated rect will be used to delimit the area
+     * of a {@link Drawable} to be zoomed and panned.
+     * @param viewportRect the bounds of the view in which the drawable will be shown.
+     *                     This is needed to generate a random rect with the same
+     *                     aspect ratio of it.
+     * @param drawableBounds the bounds of the drawable that will be zoomed and panned.
+     * @return an arbitrary generated rect with the same aspect ratio of {@code viewportRect}
+     * that will be contained in {@code drawableBounds}.
      */
     private RectF generateRandomRect(RectF viewportRect, RectF drawableBounds) {
+        RectF intersection = new RectF(viewportRect);
+        intersection.intersect(drawableBounds);
+
+        float viewportRectRatio = Rects.getRectRatio(viewportRect);
+        float intersectionRatio = Rects.getRectRatio(intersection);
+        RectF maxCrop;
+
+        if (intersectionRatio > viewportRectRatio) {
+            int r = (int) ((intersection.height() / viewportRect.height()) * viewportRect.width());
+            maxCrop = new RectF(0, 0, r, intersection.height());
+        } else {
+            int b = (int) ((intersection.width() / viewportRect.width()) * viewportRect.height());
+            maxCrop = new RectF(0, 0, intersection.width(), b);
+        }
+
         float factor = MIN_RECT_FACTOR + (mRandom.nextFloat() / 2);
-        float width = factor * viewportRect.width();
-        float height = factor * viewportRect.height();
-        int widthDiff = (int) (viewportRect.width() - width);
-        int heightDiff = (int) (viewportRect.height() - height);
+
+        float width = factor * maxCrop.width();
+        float height = factor * maxCrop.height();
+        int widthDiff = (int) (drawableBounds.width() - width);
+        int heightDiff = (int) (drawableBounds.height() - height);
         int left = widthDiff > 0 ? mRandom.nextInt(widthDiff) : 0;
         int top = heightDiff > 0 ? mRandom.nextInt(heightDiff) : 0;
         return new RectF(left, top, left + width, top + height);
