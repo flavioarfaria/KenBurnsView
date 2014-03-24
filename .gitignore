@@ -3,3 +3,4 @@ build/
 *.class
 *.idea
 *.iml
+*.keystore
