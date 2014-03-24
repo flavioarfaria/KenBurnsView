@@ -28,7 +28,7 @@ public class RandomTransitionGenerator implements TransitionGenerator {
     public static final int DEFAULT_TRANSITION_DURATION = 10000;
 
     /** Minimum rect dimension factor, according to the maximum one. */
-    private static final float MIN_RECT_FACTOR = 0.5f;
+    private static final float MIN_RECT_FACTOR = 0.75f;
 
     /** Random object used to generate arbitrary rects. */
     private final Random mRandom = new Random(System.currentTimeMillis());
@@ -92,7 +92,7 @@ public class RandomTransitionGenerator implements TransitionGenerator {
             maxCrop = new RectF(0, 0, intersection.width(), b);
         }
 
-        float factor = MIN_RECT_FACTOR + (mRandom.nextFloat() / 2);
+        float factor = MIN_RECT_FACTOR + ((1 - MIN_RECT_FACTOR) * mRandom.nextFloat());
 
         float width = factor * maxCrop.width();
         float height = factor * maxCrop.height();
