@@ -36,17 +36,21 @@ public class RandomTransitionGenerator implements TransitionGenerator {
     /** The duration, in milliseconds, of each transition. */
     private long mTransitionDuration;
 
+    /** The {@link Interpolator} to be used to create transitions. */
+    private Interpolator mTransitionInterpolator;
+
     /** The last generated transition. */
     private Transition mLastGenTrans;
 
 
     public RandomTransitionGenerator() {
-        this(DEFAULT_TRANSITION_DURATION);
+        this(DEFAULT_TRANSITION_DURATION, new AccelerateDecelerateInterpolator());
     }
 
 
-    public RandomTransitionGenerator(long transitionDuration) {
+    public RandomTransitionGenerator(long transitionDuration, Interpolator transitionInterpolator) {
         setTransitionDuration(transitionDuration);
+        setTransitionInterpolator(transitionInterpolator);
     }
 
 
@@ -59,8 +63,8 @@ public class RandomTransitionGenerator implements TransitionGenerator {
             srcRect = mLastGenTrans.getDestinyRect();
         }
         RectF dstRect = generateRandomRect(drawableBounds, viewport);
-        Interpolator interpolator = new AccelerateDecelerateInterpolator();
-        mLastGenTrans = new Transition(srcRect, dstRect, mTransitionDuration, interpolator);
+        mLastGenTrans = new Transition(srcRect, dstRect, mTransitionDuration,
+                mTransitionInterpolator);
         return mLastGenTrans;
     }
 
@@ -110,5 +114,14 @@ public class RandomTransitionGenerator implements TransitionGenerator {
      */
     public void setTransitionDuration(long transitionDuration) {
         mTransitionDuration = transitionDuration;
+    }
+
+
+    /**
+     * Sets the {@link Interpolator} for each transition generated.
+     * @param interpolator the transition interpolator.
+     */
+    public void setTransitionInterpolator(Interpolator interpolator) {
+        mTransitionInterpolator = interpolator;
     }
 }
