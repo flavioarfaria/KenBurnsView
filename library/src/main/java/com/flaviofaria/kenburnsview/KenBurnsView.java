@@ -136,7 +136,7 @@ public class KenBurnsView extends ImageView {
                     float currRectToVpScale = mViewportRect.width() / currentRect.width();
                     // Combines the two scales to fill the viewport with the current rect.
                     float totalScale = currRectToDrwScale * currRectToVpScale;
-                    
+
                     float translX = totalScale * (mDrawableRect.centerX() - currentRect.left);
                     float translY = totalScale * (mDrawableRect.centerY() - currentRect.top);
 
@@ -169,7 +169,7 @@ public class KenBurnsView extends ImageView {
      */
     private void startNewTransition() {
         fireTransitionEnd(mCurrentTrans);
-        mCurrentTrans = mTransGen.generateNextTransition(mViewportRect, mDrawableRect);
+        mCurrentTrans = mTransGen.generateNextTransition(mDrawableRect, mViewportRect);
         mElapsedTime = 0;
         mLastFrameTime = System.currentTimeMillis();
         fireTransitionStart(mCurrentTrans);

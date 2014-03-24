@@ -51,14 +51,14 @@ public class RandomTransitionGenerator implements TransitionGenerator {
 
 
     @Override
-    public Transition generateNextTransition(RectF viewport, RectF drawableBounds) {
+    public Transition generateNextTransition(RectF drawableBounds, RectF viewport) {
         RectF srcRect;
         if (mLastGenTrans == null) {
-            srcRect = generateRandomRect(viewport, drawableBounds);
+            srcRect = generateRandomRect(drawableBounds, viewport);
         } else {
             srcRect = mLastGenTrans.getDestinyRect();
         }
-        RectF dstRect = generateRandomRect(viewport, drawableBounds);
+        RectF dstRect = generateRandomRect(drawableBounds, viewport);
         Interpolator interpolator = new AccelerateDecelerateInterpolator();
         mLastGenTrans = new Transition(srcRect, dstRect, mTransitionDuration, interpolator);
         return mLastGenTrans;
@@ -69,14 +69,14 @@ public class RandomTransitionGenerator implements TransitionGenerator {
      * Generates a random rect in a scale relative to {@code viewportRect} that varies between
      * {@link #MIN_RECT_FACTOR} and 1. The generated rect will be used to delimit the area
      * of a {@link Drawable} to be zoomed and panned.
+     * @param drawableBounds the bounds of the drawable that will be zoomed and panned.
      * @param viewportRect the bounds of the view in which the drawable will be shown.
      *                     This is needed to generate a random rect with the same
      *                     aspect ratio of it.
-     * @param drawableBounds the bounds of the drawable that will be zoomed and panned.
      * @return an arbitrary generated rect with the same aspect ratio of {@code viewportRect}
      * that will be contained in {@code drawableBounds}.
      */
-    private RectF generateRandomRect(RectF viewportRect, RectF drawableBounds) {
+    private RectF generateRandomRect(RectF drawableBounds, RectF viewportRect) {
         RectF intersection = new RectF(viewportRect);
         intersection.intersect(drawableBounds);
 
