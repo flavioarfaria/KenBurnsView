@@ -1,8 +1,10 @@
 KenBurnsView
 ============
 
-An extension of *ImageView* that creates an immersive experience by animating
-its drawable using the [Ken Burns Effect][1].
+Android library that provides an extension to *ImageView* that creates an immersive
+experience by animating its drawable using the [Ken Burns Effect][1].
+
+![Example Image][2]
 
 Overview
 --------
@@ -25,15 +27,15 @@ Changelog
 
 **Latest version: 1.0**
 
-* [Library JAR][2]
-* [Sources JAR][3]
-* [Javadoc JAR][4]
-* [Sample APK][5]
+* [Library JAR][3]
+* [Sources JAR][4]
+* [Javadoc JAR][5]
+* [Sample APK][6]
 
 Basic usage
 -----------
 
-*For a working implementation, see the `sample/` folder. You can also download the [Sample APK][5].*
+*For a working implementation, see the `sample/` folder. You can also download the [Sample APK][6].*
 
 The simplest way to use **KenBurnsView** is by dropping the library JAR file into your project
 adding a view to an XML layout file:
@@ -75,11 +77,12 @@ you can implement your own `TransitionGenerator`.
 License
 -------
 
-[Apache Version 2.0][6]
+[Apache Version 2.0][7]
 
 [1]: http://en.wikipedia.org/wiki/Ken_Burns_effect
-[2]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0/KenBurnsView-1.0.jar
-[3]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0/KenBurnsView-1.0-sources.jar
-[4]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0/KenBurnsView-1.0-javadoc.jar
-[5]: http://www.filesplat.com/.flavioarfaria/shared/JW29TWZVPORUMF33GVBG92DE62DF55S5----KenBurnsView-1.0-sample.apk
-[6]: http://www.apache.org/licenses/LICENSE-2.0.html
+[2]: http://www.pictureshack.us/images/15526_KenBurnsView.gif
+[3]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0/KenBurnsView-1.0.jar
+[4]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0/KenBurnsView-1.0-sources.jar
+[5]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0/KenBurnsView-1.0-javadoc.jar
+[6]: http://www.filesplat.com/.flavioarfaria/shared/JW29TWZVPORUMF33GVBG92DE62DF55S5----KenBurnsView-1.0-sample.apk
+[7]: http://www.apache.org/licenses/LICENSE-2.0.html
