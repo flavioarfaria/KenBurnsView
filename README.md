@@ -11,22 +11,32 @@ Overview
 
 * **Control**: you can change the duration and the interpolator of transitions and
 pause/resume them. You can also listen to events like *onTransitionStart()* and
-*onTransitionEnd()*.
+*onTransitionEnd()*;
 * **Highly extensible**: you can define how the rectangles to be zoomed
-and panned will be generated.
+and panned will be generated;
 * **Libs friendly**: since **KenBurnsView** is a direct extension of *ImageView*,
 it seamlessly works out of the box with your favorite image loader library;
 * **Easy to use**: you can start using it right away. All you need to do
 is to drop the JAR file into your project and replace *ImageView* elements
  in your XML layout files by *com.flaviofaria.kenburnsview.KenBurnsView* ones.
 
+Changelog
+---------
+
+**Latest version: 1.0**
+
+* [Library JAR][2]
+* [Sources JAR][3]
+* [Javadoc JAR][4]
+* [Sample APK][5]
+
 Basic usage
 -----------
 
-*For a working implementation, see the `sample/` folder.*
+*For a working implementation, see the `sample/` folder. You can also download the [Sample APK][5].*
 
-The simplest way to use **KenBurnsView** is to drop the JAR file into your project
-and to add a view to an XML layout file:
+The simplest way to use **KenBurnsView** is by dropping the library JAR file into your project
+adding a view to an XML layout file:
 
     <com.flaviofaria.kenburnsview.KenBurnsView
         android:id="@+id/image"
@@ -65,7 +75,11 @@ you can implement your own `TransitionGenerator`.
 License
 -------
 
-[Apache Version 2.0][2]
+[Apache Version 2.0][6]
 
 [1]: http://en.wikipedia.org/wiki/Ken_Burns_effect
-[2]: http://www.apache.org/licenses/LICENSE-2.0.html
+[2]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0/KenBurnsView-1.0.jar
+[3]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0/KenBurnsView-1.0-sources.jar
+[4]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0/KenBurnsView-1.0-javadoc.jar
+[5]: http://www.filesplat.com/.flavioarfaria/shared/JW29TWZVPORUMF33GVBG92DE62DF55S5----KenBurnsView-1.0-sample.apk
+[6]: http://www.apache.org/licenses/LICENSE-2.0.html
