@@ -49,7 +49,11 @@ public class Transition {
 
 
     public Transition(RectF srcRect, RectF dstRect, long duration, Interpolator interpolator) {
-        if (Rects.getRectRatio(srcRect) != Rects.getRectRatio(dstRect)) {
+        // Reduces precision to avoid problems when comparing aspect ratios.
+        float srcRectRatio = MathUtils.truncate(MathUtils.getRectRatio(srcRect), 2);
+        float dstRectRatio = MathUtils.truncate(MathUtils.getRectRatio(dstRect), 2);
+
+        if (srcRectRatio != dstRectRatio) {
             throw new IncompatibleRatioException();
         }
         mSrcRect = srcRect;
