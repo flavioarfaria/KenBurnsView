@@ -42,6 +42,9 @@ public class RandomTransitionGenerator implements TransitionGenerator {
     /** The last generated transition. */
     private Transition mLastGenTrans;
 
+    /** The bounds of the drawable when the last transition was generated. */
+    private RectF mLastDrawableBounds;
+
 
     public RandomTransitionGenerator() {
         this(DEFAULT_TRANSITION_DURATION, new AccelerateDecelerateInterpolator());
@@ -57,14 +60,20 @@ public class RandomTransitionGenerator implements TransitionGenerator {
     @Override
     public Transition generateNextTransition(RectF drawableBounds, RectF viewport) {
         RectF srcRect;
-        if (mLastGenTrans == null) {
+        if (mLastGenTrans == null || !drawableBounds.equals(mLastDrawableBounds)) {
             srcRect = generateRandomRect(drawableBounds, viewport);
         } else {
+            /* Sets the destiny rect of the last transition as the source one
+             if the current drawable has the same dimensions as the one of
+             the last transition. */
             srcRect = mLastGenTrans.getDestinyRect();
         }
         RectF dstRect = generateRandomRect(drawableBounds, viewport);
         mLastGenTrans = new Transition(srcRect, dstRect, mTransitionDuration,
                 mTransitionInterpolator);
+
+        mLastDrawableBounds = drawableBounds;
+
         return mLastGenTrans;
     }
 
