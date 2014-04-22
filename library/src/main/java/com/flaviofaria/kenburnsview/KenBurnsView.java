@@ -114,8 +114,8 @@ public class KenBurnsView extends ImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (!mPaused) {
-            Drawable d = getDrawable();
+        Drawable d = getDrawable();
+        if (!mPaused && d != null) {
             updateDrawableBounds();
 
             // No drawable to animate or bounds are yet to be set? We're done for now.
