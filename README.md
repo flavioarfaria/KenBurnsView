@@ -74,6 +74,11 @@ by calling `kbv.resume()`;
 4. If you're willing to have even more control over transitions,
 you can implement your own `TransitionGenerator`.
 
+Contribution
+------------
+
+Want to contribute? Please, feel free to create a pull request! ;)
+
 License
 -------
 

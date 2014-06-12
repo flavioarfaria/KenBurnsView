@@ -16,10 +16,12 @@
 package com.flaviofaria.kenburnsview;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -52,7 +54,7 @@ public class KenBurnsView extends ImageView {
     /** The rect that holds the bounds of this view. */
     private final RectF mViewportRect = new RectF();
     /** The rect that holds the bounds of the current {@link Drawable}. */
-    private final RectF mDrawableRect = new RectF();
+    private RectF mDrawableRect;
 
     /** The progress of the animation, in milliseconds. */
     private long mElapsedTime;
@@ -64,6 +66,11 @@ public class KenBurnsView extends ImageView {
 
     /** Controls whether the the animation is running. */
     private boolean mPaused;
+
+    /** Indicates whether the parent constructor was already called.
+     * This is needed to distinguish if the image is being set before
+     * or after the super class constructor returns. */
+    private boolean mInitialized;
 
 
     public KenBurnsView(Context context) {
@@ -78,6 +85,7 @@ public class KenBurnsView extends ImageView {
 
     public KenBurnsView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        mInitialized = true;
         // Attention to the super call here!
         super.setScaleType(ImageView.ScaleType.MATRIX);
     }
@@ -106,6 +114,34 @@ public class KenBurnsView extends ImageView {
 
 
     @Override
+    public void setImageBitmap(Bitmap bm) {
+        super.setImageBitmap(bm);
+        handleImageChange();
+    }
+
+
+    @Override
+    public void setImageResource(int resId) {
+        super.setImageResource(resId);
+        handleImageChange();
+    }
+
+
+    @Override
+    public void setImageURI(Uri uri) {
+        super.setImageURI(uri);
+        handleImageChange();
+    }
+
+
+    @Override
+    public void setImageDrawable(Drawable drawable) {
+        super.setImageDrawable(drawable);
+        handleImageChange();
+    }
+
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         updateViewPort(w, h);
@@ -117,9 +153,8 @@ public class KenBurnsView extends ImageView {
         Drawable d = getDrawable();
         if (!mPaused && d != null) {
             updateDrawableBounds();
-
             // No drawable to animate or bounds are yet to be set? We're done for now.
-            if (d != null && !mDrawableRect.isEmpty()) {
+            if (!mDrawableRect.isEmpty()) {
                 if (mCurrentTrans == null) { // Starting the first transition.
                     startNewTransition();
                 }
@@ -152,6 +187,7 @@ public class KenBurnsView extends ImageView {
 
                     // Current transition is over. It's time to start a new one.
                     if (mElapsedTime >= mCurrentTrans.getDuration()) {
+                        fireTransitionEnd(mCurrentTrans);
                         startNewTransition();
                     }
                 } else { // Stopping? A stop event has to be fired.
@@ -168,7 +204,6 @@ public class KenBurnsView extends ImageView {
      * Generates and starts a transition.
      */
     private void startNewTransition() {
-        fireTransitionEnd(mCurrentTrans);
         mCurrentTrans = mTransGen.generateNextTransition(mDrawableRect, mViewportRect);
         mElapsedTime = 0;
         mLastFrameTime = System.currentTimeMillis();
@@ -204,6 +239,7 @@ public class KenBurnsView extends ImageView {
      */
     public void setTransitionGenerator(TransitionGenerator transgen) {
         mTransGen = transgen;
+        startNewTransition();
     }
 
 
@@ -222,7 +258,27 @@ public class KenBurnsView extends ImageView {
      * associated to this view changes.
      */
     private void updateDrawableBounds() {
-        mDrawableRect.set(getDrawable().getBounds());
+        Drawable d = getDrawable();
+        if (d != null) {
+            if (mDrawableRect == null) {
+                mDrawableRect = new RectF();
+            }
+            mDrawableRect.set(d.getBounds());
+        }
+    }
+
+
+    /**
+     * This method is called every time the underlying image
+     * is changed.
+     */
+    private void handleImageChange() {
+        /* Don't start a new transition if this event
+         was fired during the super constructor execution.
+         The view won't be ready at this time. */
+        if (mInitialized) {
+            startNewTransition();
+        }
     }
 
 
