@@ -68,8 +68,8 @@ public class KenBurnsView extends ImageView {
     private boolean mPaused;
 
     /** Indicates whether the parent constructor was already called.
-     * This is needed to distinguish when the image is being set from
-     * the class constructor or from the view client. */
+     * This is needed to distinguish if the image is being set before
+     * or after the super class constructor returns. */
     private boolean mInitialized;
 
 
@@ -268,7 +268,14 @@ public class KenBurnsView extends ImageView {
     }
 
 
+    /**
+     * This method is called every time the underlying image
+     * is changed.
+     */
     private void handleImageChange() {
+        /* Don't start a new transition if this event
+         was fired during the super constructor execution.
+         The view won't be ready at this time. */
         if (mInitialized) {
             startNewTransition();
         }
