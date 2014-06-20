@@ -152,9 +152,9 @@ public class KenBurnsView extends ImageView {
     protected void onDraw(Canvas canvas) {
         Drawable d = getDrawable();
         if (!mPaused && d != null) {
-            updateDrawableBounds();
-            // No drawable to animate or bounds are yet to be set? We're done for now.
-            if (!mDrawableRect.isEmpty()) {
+            if (mDrawableRect.isEmpty()) {
+                updateDrawableBounds();
+            } else if (!mViewportRect.isEmpty()) {
                 if (mCurrentTrans == null) { // Starting the first transition.
                     startNewTransition();
                 }
@@ -183,7 +183,6 @@ public class KenBurnsView extends ImageView {
                     mMatrix.postTranslate(translX, translY);
 
                     setImageMatrix(mMatrix);
-                    postInvalidateDelayed(FRAME_DELAY);
 
                     // Current transition is over. It's time to start a new one.
                     if (mElapsedTime >= mCurrentTrans.getDuration()) {
@@ -195,6 +194,7 @@ public class KenBurnsView extends ImageView {
                 }
             }
             mLastFrameTime = System.currentTimeMillis();
+            postInvalidateDelayed(FRAME_DELAY);
         }
         super.onDraw(canvas);
     }
@@ -263,7 +263,7 @@ public class KenBurnsView extends ImageView {
             if (mDrawableRect == null) {
                 mDrawableRect = new RectF();
             }
-            mDrawableRect.set(d.getBounds());
+            mDrawableRect.set(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
         }
     }
 
@@ -276,8 +276,9 @@ public class KenBurnsView extends ImageView {
         updateDrawableBounds();
         /* Don't start a new transition if this event
          was fired during the super constructor execution.
-         The view won't be ready at this time. */
-        if (mInitialized) {
+         The view won't be ready at this time. Also,
+         don't start it if this view size is still unknown. */
+        if (mInitialized && !mViewportRect.isEmpty()) {
             startNewTransition();
         }
     }
