@@ -35,10 +35,10 @@ android {
         release {
             signingConfig signingConfigs.release
 
-/*            signingConfig.storeFile = file(keyStore)
+            signingConfig.storeFile = file(keyStore)
             signingConfig.storePassword = storePassword
             signingConfig.keyAlias = keyAlias
-            signingConfig.keyPassword = keyPassword*/
+            signingConfig.keyPassword = keyPassword
         }
     }
 }
