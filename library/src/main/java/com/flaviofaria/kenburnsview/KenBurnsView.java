@@ -144,7 +144,7 @@ public class KenBurnsView extends ImageView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        updateViewPort(w, h);
+        updateViewport(w, h);
     }
 
 
@@ -248,13 +248,13 @@ public class KenBurnsView extends ImageView {
      * @param width the new viewport with.
      * @param height the new viewport height.
      */
-    private void updateViewPort(float width, float height) {
+    private void updateViewport(float width, float height) {
         mViewportRect.set(0, 0, width, height);
     }
 
 
     /**
-     * Updates the drawable bounds rect. THis must be called every time the drawable
+     * Updates the drawable bounds rect. This must be called every time the drawable
      * associated to this view changes.
      */
     private void updateDrawableBounds() {
