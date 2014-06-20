@@ -50,14 +50,14 @@ public class FromURLActivity extends KenBurnsActivity {
         config = new ImageLoaderConfiguration.Builder(context)
                 .memoryCache(new WeakMemoryCache())
                 .denyCacheImageMultipleSizesInMemory()
-                .discCache(new UnlimitedDiscCache(cacheDir))
+                .diskCache(new UnlimitedDiscCache(cacheDir))
                 .threadPoolSize(5)
                 .build();
 
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-                .cacheOnDisc(true)
+                .cacheOnDisk(true)
                 .cacheInMemory(true)
                 .build();
 
