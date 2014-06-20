@@ -4,4 +4,4 @@ build/
 *.idea
 *.iml
 *.keystore
-gradle.properties
+*.properties
