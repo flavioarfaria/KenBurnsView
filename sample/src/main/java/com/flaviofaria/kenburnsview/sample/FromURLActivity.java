@@ -3,6 +3,7 @@ package com.flaviofaria.kenburnsview.sample;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -15,14 +16,13 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import java.io.File;
 
 /**
- * Created by piracyde25 on 6/20/2014.
+ * Created by piracyde25 on 2014-20-06.
  */
 public class FromURLActivity extends KenBurnsActivity {
 
     private KenBurnsView mImg;
     private Context context;
 
-    // UIL
     private ImageLoaderConfiguration config;
     private File cacheDir;
     private DisplayImageOptions options;
@@ -37,12 +37,15 @@ public class FromURLActivity extends KenBurnsActivity {
 
         mImg = (KenBurnsView) findViewById(R.id.img);
 
-        if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
-            cacheDir=new File(android.os.Environment.getExternalStorageDirectory(),"."+context.getResources().getString(R.string.app_name));
-        else
-            cacheDir=context.getCacheDir();
-        if(!cacheDir.exists())
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            String cacheDirName = "." + context.getResources().getString(R.string.app_name);
+            cacheDir = new File(Environment.getExternalStorageDirectory(), cacheDirName);
+        } else {
+            cacheDir = context.getCacheDir();
+        }
+        if (!cacheDir.exists()) {
             cacheDir.mkdirs();
+        }
 
         config = new ImageLoaderConfiguration.Builder(context)
                 .memoryCache(new WeakMemoryCache())
@@ -61,7 +64,6 @@ public class FromURLActivity extends KenBurnsActivity {
         imageLoader.init(config);
 
         imageLoader.displayImage("http://i.imgur.com/gysR4Ee.jpg", mImg, options);
-
     }
 
 
