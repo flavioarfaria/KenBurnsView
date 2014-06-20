@@ -25,7 +25,7 @@ is to drop the JAR file into your project and replace *ImageView* elements
 Changelog
 ---------
 
-**Latest version: 1.0.2**
+**Latest version: 1.0.3**
 
 * [Library JAR][3]
 * [Sources JAR][4]
@@ -86,8 +86,8 @@ License
 
 [1]: http://en.wikipedia.org/wiki/Ken_Burns_effect
 [2]: http://www.pictureshack.us/images/15526_KenBurnsView.gif
-[3]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0.2/KenBurnsView-1.0.2.jar
-[4]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0.2/KenBurnsView-1.0.2-sources.jar
-[5]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0.2/KenBurnsView-1.0.2-javadoc.jar
-[6]: https://sites.google.com/site/flavioarfaria/KenBurnsView-1.0.2-sample.apk?attredirects=0&d=1
+[3]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0.3/KenBurnsView-1.0.3.jar
+[4]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0.3/KenBurnsView-1.0.3-sources.jar
+[5]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0.3/KenBurnsView-1.0.3-javadoc.jar
+[6]: https://sites.google.com/site/flavioarfaria/KenBurnsView-1.0.3-sample.apk
 [7]: http://www.apache.org/licenses/LICENSE-2.0.html
