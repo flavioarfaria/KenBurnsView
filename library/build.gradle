@@ -4,27 +4,27 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.11.0'
     }
 }
 
 apply plugin: 'android-library'
 
 android {
-    buildToolsVersion "19"
+    buildToolsVersion "19.1.0"
     compileSdkVersion 19
 }
 
 // Taken from https://github.com/keyboardsurfer/Crouton/blob/master/library/build.gradle
 android.libraryVariants.all { variant ->
   def name = variant.buildType.name
-  if (name.equals(com.android.builder.BuilderConstants.DEBUG)) {
+  if (name.equals(com.android.builder.core.BuilderConstants.DEBUG)) {
     return; // Skip debug builds.
   }
   task("javadoc${variant.name.capitalize()}", type: Javadoc) {
     description "Generates Javadoc for $variant.name."
     source = variant.javaCompile.source
-    ext.androidJar = "${android.plugin.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+    ext.androidJar = "$sdkdir/platforms/${android.compileSdkVersion}/android.jar"
     classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
   }
 

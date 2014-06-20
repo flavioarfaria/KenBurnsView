@@ -116,6 +116,9 @@ public class KenBurnsView extends ImageView {
     @Override
     public void setImageBitmap(Bitmap bm) {
         super.setImageBitmap(bm);
+
+        updateDrawableBounds();
+
         handleImageChange();
     }
 
@@ -123,6 +126,9 @@ public class KenBurnsView extends ImageView {
     @Override
     public void setImageResource(int resId) {
         super.setImageResource(resId);
+
+        updateDrawableBounds();
+
         handleImageChange();
     }
 
@@ -130,6 +136,9 @@ public class KenBurnsView extends ImageView {
     @Override
     public void setImageURI(Uri uri) {
         super.setImageURI(uri);
+
+        updateDrawableBounds();
+
         handleImageChange();
     }
 
@@ -137,6 +146,9 @@ public class KenBurnsView extends ImageView {
     @Override
     public void setImageDrawable(Drawable drawable) {
         super.setImageDrawable(drawable);
+
+        updateDrawableBounds();
+
         handleImageChange();
     }
 

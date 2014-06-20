@@ -28,6 +28,7 @@ public class MainActivity extends SherlockListActivity {
 
     private static final int POS_SINGLE_IMG = 0;
     private static final int POS_MULTI_IMG = 1;
+    private static final int POS_FROM_URL = 2;
 
 
     @Override
@@ -50,6 +51,9 @@ public class MainActivity extends SherlockListActivity {
                 break;
             case POS_MULTI_IMG:
                 startActivity(new Intent(this, MultiImageActivity.class));
+                break;
+            case POS_FROM_URL:
+                startActivity(new Intent(this, FromURLActivity.class));
                 break;
         }
     }

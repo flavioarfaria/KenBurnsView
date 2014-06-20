@@ -19,6 +19,8 @@
     android:versionCode="3"
     android:versionName="1.0.2" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
@@ -40,6 +42,8 @@
 
         <activity
             android:name=".MultiImageActivity" />
+
+        <activity android:name=".FromURLActivity" />
 
     </application>
 

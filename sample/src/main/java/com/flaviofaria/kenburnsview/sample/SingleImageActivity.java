@@ -29,6 +29,8 @@ public class SingleImageActivity extends KenBurnsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_image);
         mImg = (KenBurnsView) findViewById(R.id.img);
+
+
     }
 
 
