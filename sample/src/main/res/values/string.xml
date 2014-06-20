@@ -22,5 +22,6 @@
     <string-array name="main_options">
         <item>Single image</item>
         <item>Multiple images</item>
+        <item>From url</item>
     </string-array>
 </resources>

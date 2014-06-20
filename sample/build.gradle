@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.11.+'
     }
 }
 
@@ -17,11 +17,15 @@ apply plugin: 'android'
 dependencies {
     compile project(':library')
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-    compile 'com.android.support:support-v4:18.0.+'
+    compile 'com.android.support:support-v4:19.1.0'
+
+
+    // Using Universal Image Loader
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.2'
 }
 
 android {
-    buildToolsVersion "19"
+    buildToolsVersion "19.1.0"
     compileSdkVersion 19
 
     signingConfigs {
@@ -31,10 +35,10 @@ android {
         release {
             signingConfig signingConfigs.release
 
-            signingConfig.storeFile = file(keyStore)
+/*            signingConfig.storeFile = file(keyStore)
             signingConfig.storePassword = storePassword
             signingConfig.keyAlias = keyAlias
-            signingConfig.keyPassword = keyPassword
+            signingConfig.keyPassword = keyPassword*/
         }
     }
 }
