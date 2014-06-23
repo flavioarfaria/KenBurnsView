@@ -38,11 +38,11 @@ android.libraryVariants.all { variant ->
 
 task sourcesJar(type: Jar) {
   classifier = 'sources'
-  from android.sourceSets.main.java
+  from android.sourceSets.main.java.srcDirs
 }
 
 task jar(type: Jar) {
-  from 'build/classes/release'
+  from 'build/intermediates/classes/release'
 }
 
 task javadocJar(type: Jar, dependsOn: "javadocRelease") {
