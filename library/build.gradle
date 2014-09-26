@@ -9,13 +9,14 @@ buildscript {
 }
 
 apply plugin: 'android-library'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 android {
     buildToolsVersion "19.1.0"
     compileSdkVersion 19
 }
 
-// Taken from https://github.com/keyboardsurfer/Crouton/blob/master/library/build.gradle
 android.libraryVariants.all { variant ->
   def name = variant.buildType.name
   if (name.equals(com.android.builder.core.BuilderConstants.DEBUG)) {
@@ -33,7 +34,6 @@ android.libraryVariants.all { variant ->
     classifier = "javadoc"
     from tasks["javadoc${variant.name.capitalize()}"]
   }
-
 }
 
 task sourcesJar(type: Jar) {
@@ -54,4 +54,52 @@ artifacts {
   archives sourcesJar
   archives javadocJar
   archives jar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'KenBurnsView'
+		artifactId 'kenburnsview'
+        packaging 'jar', 'aar'
+        description 'Android library that provides an extension to ImageView that creates an immersive experience by animating its drawable using the Ken Burns Effect.'
+        url 'https://github.com/flavioarfaria/KenBurnsView'
+
+        scm {
+          connection 'scm:git@github.com:flavioarfaria/KenBurnsView.git'
+          developerConnection 'scm:git@github.com:flavioarfaria/KenBurnsView.git'
+          url 'scm:git@github.com:flavioarfaria/KenBurnsView.git'
+        }
+
+        licenses {
+          license {
+            name 'The Apache License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+
+        developers {
+          developer {
+            id 'flavioarfaria'
+            name 'Flavio Faria'
+          }
+        }
+      }
+    }
+  }
 }

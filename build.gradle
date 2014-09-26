@@ -1,4 +1,6 @@
 subprojects {
+    group = "com.flaviofaria"
+    version = "1.0.3"
 
     buildscript {
         repositories {

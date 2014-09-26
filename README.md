@@ -32,6 +32,15 @@ Changelog
 * [Javadoc JAR][5]
 * [Sample APK][6]
 
+Gradle integration
+------------------
+
+If you're using Gradle, you can declare this library as a dependency:
+
+	dependencies {
+        compile 'com.flaviofaria:kenburnsview:1.0.3'
+	}
+
 Basic usage
 -----------
 
@@ -86,8 +95,8 @@ License
 
 [1]: http://en.wikipedia.org/wiki/Ken_Burns_effect
 [2]: http://www.pictureshack.us/images/15526_KenBurnsView.gif
-[3]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0.3/KenBurnsView-1.0.3.jar
-[4]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0.3/KenBurnsView-1.0.3-sources.jar
-[5]: https://github.com/flavioarfaria/KenBurnsView/releases/download/v1.0.3/KenBurnsView-1.0.3-javadoc.jar
+[3]: http://search.maven.org/remotecontent?filepath=com/flaviofaria/kenburnsview/1.0.3/kenburnsview-1.0.3.jar
+[4]: http://search.maven.org/remotecontent?filepath=com/flaviofaria/kenburnsview/1.0.3/kenburnsview-1.0.3-sources.jar
+[5]: http://search.maven.org/remotecontent?filepath=com/flaviofaria/kenburnsview/1.0.3/kenburnsview-1.0.3-javadoc.jar
 [6]: https://sites.google.com/site/flavioarfaria/KenBurnsView-1.0.3-sample.apk
 [7]: http://www.apache.org/licenses/LICENSE-2.0.html
