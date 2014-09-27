@@ -154,7 +154,7 @@ public class KenBurnsView extends ImageView {
         if (!mPaused && d != null) {
             if (mDrawableRect.isEmpty()) {
                 updateDrawableBounds();
-            } else if (!mViewportRect.isEmpty()) {
+            } else if (hasBounds()) {
                 if (mCurrentTrans == null) { // Starting the first transition.
                     startNewTransition();
                 }
@@ -212,6 +212,15 @@ public class KenBurnsView extends ImageView {
 
 
     /**
+     * Checks whether this view has bounds.
+     * @return
+     */
+    private boolean hasBounds() {
+        return !mViewportRect.isEmpty();
+    }
+
+
+    /**
      * Fires a start event on {@link #mTransitionListener};
      * @param transition the transition that just started.
      */
@@ -239,7 +248,9 @@ public class KenBurnsView extends ImageView {
      */
     public void setTransitionGenerator(TransitionGenerator transgen) {
         mTransGen = transgen;
-        startNewTransition();
+        if (hasBounds()) {
+            startNewTransition();
+        }
     }
 
 
@@ -278,7 +289,7 @@ public class KenBurnsView extends ImageView {
          was fired during the super constructor execution.
          The view won't be ready at this time. Also,
          don't start it if this view size is still unknown. */
-        if (mInitialized && !mViewportRect.isEmpty()) {
+        if (mInitialized && hasBounds()) {
             startNewTransition();
         }
     }
