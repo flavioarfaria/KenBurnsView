@@ -144,7 +144,7 @@ public class KenBurnsView extends ImageView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        updateViewport(w, h);
+        restart();
     }
 
 
@@ -204,10 +204,34 @@ public class KenBurnsView extends ImageView {
      * Generates and starts a transition.
      */
     private void startNewTransition() {
+        if (!hasBounds()) {
+            throw new UnsupportedOperationException("Can't start transition if the " +
+                                                    "drawable has no bounds!");
+        }
         mCurrentTrans = mTransGen.generateNextTransition(mDrawableRect, mViewportRect);
         mElapsedTime = 0;
         mLastFrameTime = System.currentTimeMillis();
         fireTransitionStart(mCurrentTrans);
+    }
+
+
+    /**
+     * Creates a new transition and starts over.
+     */
+    public void restart() {
+        int width = getWidth();
+        int height = getHeight();
+
+        if (width == 0 || height == 0) {
+            throw new UnsupportedOperationException("Can't call restart() when view area is zero!");
+        }
+
+        updateViewport(width, height);
+        updateDrawableBounds();
+
+        if (hasBounds()) {
+            startNewTransition();
+        }
     }
 
 
@@ -269,11 +293,11 @@ public class KenBurnsView extends ImageView {
      * associated to this view changes.
      */
     private void updateDrawableBounds() {
+        if (mDrawableRect == null) {
+            mDrawableRect = new RectF();
+        }
         Drawable d = getDrawable();
         if (d != null) {
-            if (mDrawableRect == null) {
-                mDrawableRect = new RectF();
-            }
             mDrawableRect.set(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
         }
     }

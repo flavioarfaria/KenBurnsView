@@ -16,9 +16,8 @@
 package com.flaviofaria.kenburnsview;
 
 import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
-import android.view.animation.Interpolator;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 import java.util.Random;
 
@@ -59,16 +58,29 @@ public class RandomTransitionGenerator implements TransitionGenerator {
 
     @Override
     public Transition generateNextTransition(RectF drawableBounds, RectF viewport) {
-        RectF srcRect;
-        if (mLastGenTrans == null || !drawableBounds.equals(mLastDrawableBounds)) {
+        boolean firstTransition = mLastGenTrans == null;
+        boolean drawableBoundsChanged = true;
+        boolean viewportRatioChanged = true;
+
+        RectF srcRect = null;
+        RectF dstRect = null;
+
+        if (!firstTransition) {
+            dstRect = mLastGenTrans.getDestinyRect();
+            drawableBoundsChanged = !drawableBounds.equals(mLastDrawableBounds);
+            viewportRatioChanged = !MathUtils.haveSameAspectRatio(dstRect, viewport);
+        }
+
+        if (dstRect == null || drawableBoundsChanged || viewportRatioChanged) {
             srcRect = generateRandomRect(drawableBounds, viewport);
         } else {
             /* Sets the destiny rect of the last transition as the source one
              if the current drawable has the same dimensions as the one of
              the last transition. */
-            srcRect = mLastGenTrans.getDestinyRect();
+            srcRect = dstRect;
         }
-        RectF dstRect = generateRandomRect(drawableBounds, viewport);
+        dstRect = generateRandomRect(drawableBounds, viewport);
+
         mLastGenTrans = new Transition(srcRect, dstRect, mTransitionDuration,
                 mTransitionInterpolator);
 

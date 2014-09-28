@@ -36,6 +36,21 @@ public final class MathUtils {
 
 
     /**
+     * Checks whether two {@link RectF} have the same aspect ratio.
+     * @param r1 the first rect.
+     * @param r2  the second rect.
+     * @return {@code true} if both rectangles have the same aspect ratio,
+     * {@code false} otherwise.
+     */
+    protected static boolean haveSameAspectRatio(RectF r1, RectF r2) {
+        // Reduces precision to avoid problems when comparing aspect ratios.
+        float srcRectRatio = MathUtils.truncate(MathUtils.getRectRatio(r1), 2);
+        float dstRectRatio = MathUtils.truncate(MathUtils.getRectRatio(r2), 2);
+        return srcRectRatio == dstRectRatio;
+    }
+
+
+    /**
      * Computes the aspect ratio of a given rect.
      * @param rect the rect to have its aspect ratio computed.
      * @return the rect aspect ratio.
