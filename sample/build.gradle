@@ -25,6 +25,14 @@ android {
     buildToolsVersion "19.1.0"
     compileSdkVersion 19
 
+    defaultConfig {
+        applicationId "com.flaviofaria.kenburnsview.sample"
+        minSdkVersion 8
+        targetSdkVersion 19
+        versionCode 5
+        versionName "1.0.4"
+    }
+
     signingConfigs {
         release {}
     }
