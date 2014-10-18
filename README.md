@@ -22,15 +22,12 @@ it seamlessly works out of the box with your favorite image loader library;
 is to drop the JAR file into your project and replace *ImageView* elements
  in your XML layout files by *com.flaviofaria.kenburnsview.KenBurnsView* ones.
 
-Changelog
+[Changelog][3]
 ---------
 
-**Latest version: 1.0.3**
+**Latest version: 1.0.4**
 
-* [Library JAR][3]
-* [Sources JAR][4]
-* [Javadoc JAR][5]
-* [Sample APK][6]
+* [Download JAR from Maven Central][4]
 
 Gradle integration
 ------------------
@@ -38,13 +35,13 @@ Gradle integration
 If you're using Gradle, you can declare this library as a dependency:
 
 	dependencies {
-        compile 'com.flaviofaria:kenburnsview:1.0.3'
+        compile 'com.flaviofaria:kenburnsview:1.0.4'
 	}
 
 Basic usage
 -----------
 
-*For a working implementation, see the `sample/` folder. You can also download the [Sample APK][6].*
+*For a working implementation, see the `sample/` folder. You can also download the [Sample APK][5].*
 
 The simplest way to use **KenBurnsView** is by dropping the library JAR file into your project
 adding a view to an XML layout file:
@@ -83,6 +80,11 @@ by calling `kbv.resume()`;
 4. If you're willing to have even more control over transitions,
 you can implement your own `TransitionGenerator`.
 
+Questions
+---------
+
+You can ask any question on Stack Overflow using the [android-kenburnsview][6] tag.
+
 Contribution
 ------------
 
@@ -95,8 +97,8 @@ License
 
 [1]: http://en.wikipedia.org/wiki/Ken_Burns_effect
 [2]: http://www.pictureshack.us/images/15526_KenBurnsView.gif
-[3]: http://search.maven.org/remotecontent?filepath=com/flaviofaria/kenburnsview/1.0.3/kenburnsview-1.0.3.jar
-[4]: http://search.maven.org/remotecontent?filepath=com/flaviofaria/kenburnsview/1.0.3/kenburnsview-1.0.3-sources.jar
-[5]: http://search.maven.org/remotecontent?filepath=com/flaviofaria/kenburnsview/1.0.3/kenburnsview-1.0.3-javadoc.jar
-[6]: https://sites.google.com/site/flavioarfaria/KenBurnsView-1.0.3-sample.apk
+[3]: https://github.com/flavioarfaria/KenBurnsView/wiki/Changelog
+[4]: http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.flaviofaria%22%20AND%20a%3A%22kenburnsview%22
+[5]: https://sites.google.com/site/flavioarfaria/KenBurnsView-1.0.4-sample.apk
+[6]: http://stackoverflow.com/questions/tagged/android-kenburnsview
 [7]: http://www.apache.org/licenses/LICENSE-2.0.html
