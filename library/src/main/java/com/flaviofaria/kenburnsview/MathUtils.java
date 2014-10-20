@@ -46,7 +46,9 @@ public final class MathUtils {
         // Reduces precision to avoid problems when comparing aspect ratios.
         float srcRectRatio = MathUtils.truncate(MathUtils.getRectRatio(r1), 2);
         float dstRectRatio = MathUtils.truncate(MathUtils.getRectRatio(r2), 2);
-        return srcRectRatio == dstRectRatio;
+        
+        // Compares aspect ratios that allows for a tolerance range of [0, 0.01] 
+        return (Math.abs(srcRectRatio-dstRectRatio) <= 0.01f);
     }
 
 
