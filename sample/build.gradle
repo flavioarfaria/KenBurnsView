@@ -17,18 +17,18 @@ apply plugin: 'android'
 dependencies {
     compile project(':library')
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.android.support:support-v4:21.0.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.2'
 }
 
 android {
-    buildToolsVersion "19.1.0"
-    compileSdkVersion 19
+    buildToolsVersion "21.0.1"
+    compileSdkVersion 21
 
     defaultConfig {
         applicationId "com.flaviofaria.kenburnsview.sample"
         minSdkVersion 8
-        targetSdkVersion 19
+        targetSdkVersion 21
         versionCode 5
         versionName "1.0.4"
     }
