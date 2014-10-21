@@ -25,7 +25,7 @@ is to drop the JAR file into your project and replace *ImageView* elements
 [Changelog][3]
 ---------
 
-**Latest version: 1.0.4**
+**Latest version: 1.0.5**
 
 * [Download JAR from Maven Central][4]
 
@@ -35,7 +35,7 @@ Gradle integration
 If you're using Gradle, you can declare this library as a dependency:
 
 	dependencies {
-        compile 'com.flaviofaria:kenburnsview:1.0.4'
+        compile 'com.flaviofaria:kenburnsview:1.0.5'
 	}
 
 Basic usage
@@ -99,6 +99,6 @@ License
 [2]: http://www.pictureshack.us/images/15526_KenBurnsView.gif
 [3]: https://github.com/flavioarfaria/KenBurnsView/wiki/Changelog
 [4]: http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.flaviofaria%22%20AND%20a%3A%22kenburnsview%22
-[5]: https://sites.google.com/site/flavioarfaria/KenBurnsView-1.0.4-sample.apk
+[5]: https://sites.google.com/site/flavioarfaria/KenBurnsView-1.0.5-sample.apk
 [6]: http://stackoverflow.com/questions/tagged/android-kenburnsview
 [7]: http://www.apache.org/licenses/LICENSE-2.0.html
