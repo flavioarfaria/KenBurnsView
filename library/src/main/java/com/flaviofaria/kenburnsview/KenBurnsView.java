@@ -205,9 +205,9 @@ public class KenBurnsView extends ImageView {
      */
     private void startNewTransition() {
         if (!hasBounds()) {
-            throw new UnsupportedOperationException("Can't start transition if the " +
-                                                    "drawable has no bounds!");
+            return ; // Can't start transition if the drawable has no bounds
         }
+
         mCurrentTrans = mTransGen.generateNextTransition(mDrawableRect, mViewportRect);
         mElapsedTime = 0;
         mLastFrameTime = System.currentTimeMillis();
@@ -223,15 +223,13 @@ public class KenBurnsView extends ImageView {
         int height = getHeight();
 
         if (width == 0 || height == 0) {
-            throw new UnsupportedOperationException("Can't call restart() when view area is zero!");
+            return ; // Can't call restart() when view area is zero
         }
 
         updateViewport(width, height);
         updateDrawableBounds();
 
-        if (hasBounds()) {
-            startNewTransition();
-        }
+        startNewTransition();
     }
 
 
@@ -272,9 +270,8 @@ public class KenBurnsView extends ImageView {
      */
     public void setTransitionGenerator(TransitionGenerator transgen) {
         mTransGen = transgen;
-        if (hasBounds()) {
-            startNewTransition();
-        }
+
+        startNewTransition();
     }
 
 
@@ -313,7 +310,7 @@ public class KenBurnsView extends ImageView {
          was fired during the super constructor execution.
          The view won't be ready at this time. Also,
          don't start it if this view size is still unknown. */
-        if (mInitialized && hasBounds()) {
+        if (mInitialized) {
             startNewTransition();
         }
     }
