@@ -205,9 +205,8 @@ public class KenBurnsView extends ImageView {
      */
     private void startNewTransition() {
         if (!hasBounds()) {
-            return ; // Can't start transition if the drawable has no bounds
+            return; // Can't start transition if the drawable has no bounds.
         }
-
         mCurrentTrans = mTransGen.generateNextTransition(mDrawableRect, mViewportRect);
         mElapsedTime = 0;
         mLastFrameTime = System.currentTimeMillis();
@@ -223,7 +222,7 @@ public class KenBurnsView extends ImageView {
         int height = getHeight();
 
         if (width == 0 || height == 0) {
-            return ; // Can't call restart() when view area is zero
+            return; // Can't call restart() when view area is zero.
         }
 
         updateViewport(width, height);
@@ -270,7 +269,6 @@ public class KenBurnsView extends ImageView {
      */
     public void setTransitionGenerator(TransitionGenerator transgen) {
         mTransGen = transgen;
-
         startNewTransition();
     }
 
