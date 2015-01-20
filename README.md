@@ -2,9 +2,9 @@ KenBurnsView
 ============
 
 Android library that provides an extension to *ImageView* that creates an immersive
-experience by animating its drawable using the [Ken Burns Effect][1].
+experience by animating its drawable using the [Ken Burns Effect][KenBurnsEffect].
 
-![Example Image][2]
+![Example Image][SampleImage]
 
 Overview
 --------
@@ -22,12 +22,12 @@ it seamlessly works out of the box with your favorite image loader library;
 is to drop the JAR file into your project and replace *ImageView* elements
  in your XML layout files by *com.flaviofaria.kenburnsview.KenBurnsView* ones.
 
-[Changelog][3]
+[Changelog][Changelog]
 ---------
 
-**Latest version: 1.0.5**
+**Latest version: 1.0.6**
 
-* [Download JAR from Maven Central][4]
+* [Download JAR from Maven Central][Maven]
 
 Gradle integration
 ------------------
@@ -35,13 +35,13 @@ Gradle integration
 If you're using Gradle, you can declare this library as a dependency:
 
 	dependencies {
-        compile 'com.flaviofaria:kenburnsview:1.0.5'
+        compile 'com.flaviofaria:kenburnsview:1.0.6'
 	}
 
 Basic usage
 -----------
 
-*For a working implementation, see the `sample/` folder. You can also download the [Sample APK][5].*
+*For a working implementation, see the `sample/` folder. You can also download the [Sample APK][SampleApk].*
 
 The simplest way to use **KenBurnsView** is by dropping the library JAR file into your project
 adding a view to an XML layout file:
@@ -83,7 +83,17 @@ you can implement your own `TransitionGenerator`.
 Questions
 ---------
 
-You can ask any question on Stack Overflow using the [android-kenburnsview][6] tag.
+You can ask any question on Stack Overflow using the [android-kenburnsview][StackOverflowTag] tag.
+
+Used by
+-------
+
+If you want your app listed here, drop me a message on [Google+][Gplus].
+
+Icon                                                                                                         | App link
+-------------------------------------------------------------------------------------------------------------|-----------
+<img src="https://lh4.ggpht.com/swslLzTkgiBFpaRHJbxSVgzRWl7hxvNYSTIBByF9LdD-71AQnfP9o4gevS39-AyEpkML=w48" /> | [Winnin]
+<img src="https://lh3.ggpht.com/txlZ48RgPe8afIA39J-IqzSZqsbt2Dz3sht7YAqKbVTIoEi6e5KGG0s1NlIgwz8fQj-n=w48" /> | [Getaways]
 
 Contribution
 ------------
@@ -93,12 +103,15 @@ Want to contribute? Please, feel free to create a pull request! ;)
 License
 -------
 
-[Apache Version 2.0][7]
+[Apache Version 2.0][License]
 
-[1]: http://en.wikipedia.org/wiki/Ken_Burns_effect
-[2]: http://www.pictureshack.us/images/15526_KenBurnsView.gif
-[3]: https://github.com/flavioarfaria/KenBurnsView/wiki/Changelog
-[4]: http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.flaviofaria%22%20AND%20a%3A%22kenburnsview%22
-[5]: https://sites.google.com/site/flavioarfaria/KenBurnsView-1.0.5-sample.apk
-[6]: http://stackoverflow.com/questions/tagged/android-kenburnsview
-[7]: http://www.apache.org/licenses/LICENSE-2.0.html
+[KenBurnsEffect]:   http://en.wikipedia.org/wiki/Ken_Burns_effect
+[SampleImage]:      http://www.pictureshack.us/images/15526_KenBurnsView.gif
+[Changelog]:        https://github.com/flavioarfaria/KenBurnsView/wiki/Changelog
+[Maven]:            http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.flaviofaria%22%20AND%20a%3A%22kenburnsview%22
+[SampleApk]:        https://sites.google.com/site/flavioarfaria/KenBurnsView-1.0.6-sample.apk
+[StackOverflowTag]: http://stackoverflow.com/questions/tagged/android-kenburnsview
+[License]:          http://www.apache.org/licenses/LICENSE-2.0.html
+[GPlus]:            https://plus.google.com/+Fl%C3%A1vioFaria1
+[Winnin]:           https://play.google.com/store/apps/details?id=com.winnin
+[Getaways]:         https://play.google.com/store/apps/details?id=com.groupon.travel
