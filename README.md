@@ -93,7 +93,7 @@ If you want your app listed here, drop me a message on [Google+][Gplus].
 Icon                                                                                                         | App link
 -------------------------------------------------------------------------------------------------------------|-----------
 <img src="https://lh4.ggpht.com/swslLzTkgiBFpaRHJbxSVgzRWl7hxvNYSTIBByF9LdD-71AQnfP9o4gevS39-AyEpkML=w48" /> | [Winnin]
-<img src="https://lh3.ggpht.com/txlZ48RgPe8afIA39J-IqzSZqsbt2Dz3sht7YAqKbVTIoEi6e5KGG0s1NlIgwz8fQj-n=w48" /> | [Getaways]
+<img src="https://lh3.ggpht.com/txlZ48RgPe8afIA39J-IqzSZqsbt2Dz3sht7YAqKbVTIoEi6e5KGG0s1NlIgwz8fQj-n=w48" /> | [Getaways by Groupon][Getaways]
 
 Contribution
 ------------
