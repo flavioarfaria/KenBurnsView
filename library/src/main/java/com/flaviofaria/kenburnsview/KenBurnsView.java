@@ -292,7 +292,7 @@ public class KenBurnsView extends ImageView {
             mDrawableRect = new RectF();
         }
         Drawable d = getDrawable();
-        if (d != null) {
+        if (d != null && d.getIntrinsicHeight() > 0 && d.getIntrinsicWidth() > 0) {
             mDrawableRect.set(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
         }
     }
