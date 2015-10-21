@@ -84,7 +84,7 @@ public class RandomTransitionGenerator implements TransitionGenerator {
         mLastGenTrans = new Transition(srcRect, dstRect, mTransitionDuration,
                 mTransitionInterpolator);
 
-        mLastDrawableBounds = drawableBounds;
+        mLastDrawableBounds = new RectF(drawableBounds);
 
         return mLastGenTrans;
     }
