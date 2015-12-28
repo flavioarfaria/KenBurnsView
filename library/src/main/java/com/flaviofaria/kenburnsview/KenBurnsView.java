@@ -168,7 +168,9 @@ public class KenBurnsView extends ImageView {
                     // Scale to make the current rect match the smallest drawable dimension.
                     float currRectToDrwScale = Math.min(widthScale, heightScale);
                     // Scale to make the current rect match the viewport bounds.
-                    float currRectToVpScale = mViewportRect.width() / currentRect.width();
+                    float vpWidthScale = mViewportRect.width() / currentRect.width();
+                    float vpHeightScale = mViewportRect.height() / currentRect.height();
+                    float currRectToVpScale = Math.min(vpWidthScale, vpHeightScale);
                     // Combines the two scales to fill the viewport with the current rect.
                     float totalScale = currRectToDrwScale * currRectToVpScale;
 
