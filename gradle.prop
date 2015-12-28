@@ -21,3 +21,5 @@ keyStore=<enter-keystore-file>
 storePassword=<enter-keystore-password>
 keyAlias=<enter-key-alias>
 keyPassword=<enter-key-password>
+ossrhUsername=<enter-oss-username>
+ossrhPassword=<enter-oss-password>
