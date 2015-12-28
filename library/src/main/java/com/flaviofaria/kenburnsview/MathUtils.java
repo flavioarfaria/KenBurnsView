@@ -44,8 +44,8 @@ public final class MathUtils {
      */
     protected static boolean haveSameAspectRatio(RectF r1, RectF r2) {
         // Reduces precision to avoid problems when comparing aspect ratios.
-        float srcRectRatio = MathUtils.truncate(MathUtils.getRectRatio(r1), 2);
-        float dstRectRatio = MathUtils.truncate(MathUtils.getRectRatio(r2), 2);
+        float srcRectRatio = MathUtils.truncate(MathUtils.getRectRatio(r1), 3);
+        float dstRectRatio = MathUtils.truncate(MathUtils.getRectRatio(r2), 3);
         
         // Compares aspect ratios that allows for a tolerance range of [0, 0.01] 
         return (Math.abs(srcRectRatio-dstRectRatio) <= 0.01f);
