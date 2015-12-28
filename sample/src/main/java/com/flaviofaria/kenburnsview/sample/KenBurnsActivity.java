@@ -15,24 +15,25 @@
  */
 package com.flaviofaria.kenburnsview.sample;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
-public abstract class KenBurnsActivity extends SherlockActivity {
+
+public abstract class KenBurnsActivity extends AppCompatActivity {
 
     private boolean mPaused;
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.playPause);
         if (mPaused) {
-            item.setIcon(R.drawable.ic_media_play);
+            item.setIcon(R.drawable.ic_play);
             item.setTitle(R.string.play);
         } else {
-            item.setIcon(R.drawable.ic_media_pause);
+            item.setIcon(R.drawable.ic_pause);
             item.setTitle(R.string.pause);
         }
         return super.onCreateOptionsMenu(menu);
