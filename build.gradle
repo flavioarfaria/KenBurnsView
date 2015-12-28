@@ -8,7 +8,7 @@ subprojects {
         }
 
         dependencies {
-            classpath 'com.android.tools.build:gradle:1.0.0'
+            classpath 'com.android.tools.build:gradle:1.5.0'
         }
     }
 
