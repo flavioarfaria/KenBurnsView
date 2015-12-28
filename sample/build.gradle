@@ -8,8 +8,8 @@ dependencies {
 }
 
 android {
-    buildToolsVersion "21.0.1"
-    compileSdkVersion 21
+    buildToolsVersion "23.0.2"
+    compileSdkVersion 23
 
     defaultConfig {
         applicationId "com.flaviofaria.kenburnsview.sample"
