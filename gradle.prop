@@ -21,5 +21,10 @@ keyStore=<enter-keystore-file>
 storePassword=<enter-keystore-password>
 keyAlias=<enter-key-alias>
 keyPassword=<enter-key-password>
+
+# OSS-specific properties.
+signing.keyId=<your-key-id>
+signing.password=<your-public-key-password>
+signing.secretKeyRingFile=<path-to-your-keyring-file>
 ossrhUsername=<enter-oss-username>
 ossrhPassword=<enter-oss-password>
