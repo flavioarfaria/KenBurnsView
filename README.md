@@ -34,9 +34,11 @@ Gradle integration
 
 If you're using Gradle, you can declare this library as a dependency:
 
-	dependencies {
-        compile 'com.flaviofaria:kenburnsview:1.0.6'
-	}
+```groovy
+dependencies {
+    compile 'com.flaviofaria:kenburnsview:1.0.6'
+}
+```
 
 Basic usage
 -----------
@@ -46,36 +48,42 @@ Basic usage
 The simplest way to use **KenBurnsView** is by dropping the library JAR file into your project
 adding a view to an XML layout file:
 
-    <com.flaviofaria.kenburnsview.KenBurnsView
-        android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/your_drawable" />
+```xml
+<com.flaviofaria.kenburnsview.KenBurnsView
+    android:id="@+id/image"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:src="@drawable/your_drawable" />
+```
 
 Advanced usage
 --------------
 
 1. You can set a listener to your view:
 
-        KenBurnsView kbv = (KenBurnsView) findViewById(R.id.image);
-        kbv.setTransitionListener(new TransitionListener() {
-            @Override
-            public void onTransitionStart(Transition transition) {
+```java
+KenBurnsView kbv = (KenBurnsView) findViewById(R.id.image);
+kbv.setTransitionListener(new TransitionListener() {
+    @Override
+    public void onTransitionStart(Transition transition) {
 
-            }
-            @Override
-            public void onTransitionEnd(Transition transition) {
+    }
+    @Override
+    public void onTransitionEnd(Transition transition) {
 
-            }
-        });
+    }
+});
+```
 
 2. You can pause the animation by calling `kbv.pause()` and resume it
 by calling `kbv.resume()`;
 
 3. You can change the duration and the interpolator of transitions:
 
-        RandomTransitionGenerator generator = new RandomTransitionGenerator(duration, interpolator);
-        kbv.setTransitionGenerator(generator);
+```java
+RandomTransitionGenerator generator = new RandomTransitionGenerator(duration, interpolator);
+kbv.setTransitionGenerator(generator);
+```
 
 4. If you're willing to have even more control over transitions,
 you can implement your own `TransitionGenerator`.
