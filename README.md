@@ -36,7 +36,7 @@ If you're using Gradle, you can declare this library as a dependency:
 
 ```groovy
 dependencies {
-    compile 'com.flaviofaria:kenburnsview:1.0.6'
+    compile 'com.flaviofaria:kenburnsview:1.0.7'
 }
 ```
 
