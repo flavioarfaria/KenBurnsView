@@ -25,7 +25,7 @@ is to drop the JAR file into your project and replace *ImageView* elements
 [Changelog][Changelog]
 ---------
 
-**Latest version: 1.0.6**
+**Latest version: 1.0.7**
 
 * [Download JAR from Maven Central][Maven]
 
@@ -43,7 +43,7 @@ dependencies {
 Basic usage
 -----------
 
-*For a working implementation, see the `sample/` folder. You can also download the [Sample APK][SampleApk].*
+*For a working implementation, see the `sample/` folder.*
 
 The simplest way to use **KenBurnsView** is by dropping the library JAR file into your project
 adding a view to an XML layout file:
@@ -118,10 +118,9 @@ License
 [SampleImage]:      http://www.pictureshack.us/images/15526_KenBurnsView.gif
 [Changelog]:        https://github.com/flavioarfaria/KenBurnsView/wiki/Changelog
 [Maven]:            http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.flaviofaria%22%20AND%20a%3A%22kenburnsview%22
-[SampleApk]:        https://sites.google.com/site/flavioarfaria/KenBurnsView-1.0.6-sample.apk
 [StackOverflowTag]: http://stackoverflow.com/questions/tagged/android-kenburnsview
 [License]:          http://www.apache.org/licenses/LICENSE-2.0.html
 [GPlus]:            https://plus.google.com/+Fl%C3%A1vioFaria1
 [FotMob]:           https://play.google.com/store/apps/details?id=com.mobilefootie.wc2010
 [Getaways]:         https://play.google.com/store/apps/details?id=com.groupon.travel
-[JustFood]:	    https://play.google.com/store/apps/details?id=scientist.jobless.foodmana
+[JustFood]:	        https://play.google.com/store/apps/details?id=scientist.jobless.foodmana
