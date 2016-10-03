@@ -116,7 +116,7 @@ License
 [Apache Version 2.0][License]
 
 [KenBurnsEffect]:   http://en.wikipedia.org/wiki/Ken_Burns_effect
-[SampleImage]:      http://www.pictureshack.us/images/15526_KenBurnsView.gif
+[SampleImage]:      anim.gif
 [Changelog]:        https://github.com/flavioarfaria/KenBurnsView/wiki/Changelog
 [Maven]:            http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.flaviofaria%22%20AND%20a%3A%22kenburnsview%22
 [StackOverflowTag]: http://stackoverflow.com/questions/tagged/android-kenburnsview
