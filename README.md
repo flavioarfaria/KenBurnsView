@@ -104,6 +104,7 @@ Icon                                                                            
 <img src="https://lh3.ggpht.com/txlZ48RgPe8afIA39J-IqzSZqsbt2Dz3sht7YAqKbVTIoEi6e5KGG0s1NlIgwz8fQj-n=w48" /> | [Getaways by Groupon][Getaways]
 <img src="https://lh3.googleusercontent.com/oGf7pFtEvi6OwLRiR75EI28bY3_AgUfS0Ci7DzuwjCla4jn5d_EIzsESRF5zJnUDXYqX=w48-rw" /> | [just food][JustFood]
 <img src="https://lh3.googleusercontent.com/yZaRg3-_ghY4k7Mp6WMMsOI1DXOAsaD77pRKjp4Q8xutmQjIK4u91ZW6ThuEHx3T3WE=w48-rw" /> | [{Soft} Skills][SoftSkills]
+<img src="https://lh3.googleusercontent.com/YyxTvXcnP1TlsjioE9kucJAuFjXAGBRVUea2_-cGu5HBkbgJ57hzv6FymRdMQA7oCj0=w48-rw" /> | [AppsTracker][AppsTracker]
 
 Contribution
 ------------
@@ -125,4 +126,5 @@ License
 [FotMob]:           https://play.google.com/store/apps/details?id=com.mobilefootie.wc2010
 [Getaways]:         https://play.google.com/store/apps/details?id=com.groupon.travel
 [JustFood]:	        https://play.google.com/store/apps/details?id=scientist.jobless.foodmana
-[SoftSkills]:	        https://play.google.com/store/apps/details?id=com.fanaticdevs.androider
+[SoftSkills]:	    https://play.google.com/store/apps/details?id=com.fanaticdevs.androider
+[AppsTracker]:      https://play.google.com/store/apps/details?id=com.it.appstracker
