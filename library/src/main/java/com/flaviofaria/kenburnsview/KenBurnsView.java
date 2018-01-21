@@ -25,6 +25,8 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import com.burningthumb.premiervideokiosk.DrawOnImageView;
+
 /**
  * {@link ImageView} extension that animates its image with the
  * <a href="http://en.wikipedia.org/wiki/Ken_Burns_effect">Ken Burns Effect</a>.
@@ -32,7 +34,8 @@ import android.widget.ImageView;
  * @see Transition
  * @see TransitionGenerator
  */
-public class KenBurnsView extends ImageView {
+public class KenBurnsView extends DrawOnImageView
+{
 
     /** Delay between a pair of frames at a 60 FPS frame rate. */
     private static final long FRAME_DELAY = 1000 / 60;
@@ -73,32 +76,37 @@ public class KenBurnsView extends ImageView {
     private boolean mInitialized;
 
 
-    public KenBurnsView(Context context) {
+    public KenBurnsView(Context context)
+    {
         this(context, null);
     }
 
 
-    public KenBurnsView(Context context, AttributeSet attrs) {
+    public KenBurnsView(Context context, AttributeSet attrs)
+    {
         this(context, attrs, 0);
     }
 
 
-    public KenBurnsView(Context context, AttributeSet attrs, int defStyle) {
+    public KenBurnsView(Context context, AttributeSet attrs, int defStyle)
+    {
         super(context, attrs, defStyle);
         mInitialized = true;
         // Attention to the super call here!
         super.setScaleType(ImageView.ScaleType.MATRIX);
     }
 
-
+/*
     @Override
     public void setScaleType(ScaleType scaleType) {
-        // It'll always be center-cropped by default.
+        // It needs to be matrix or it does not work
     }
+*/
 
 
     @Override
-    public void setVisibility(int visibility) {
+    public void setVisibility(int visibility)
+    {
         super.setVisibility(visibility);
         /* When not visible, onDraw() doesn't get called,
            but the time elapses anyway. */
@@ -114,42 +122,49 @@ public class KenBurnsView extends ImageView {
 
 
     @Override
-    public void setImageBitmap(Bitmap bm) {
+    public void setImageBitmap(Bitmap bm)
+    {
         super.setImageBitmap(bm);
         handleImageChange();
     }
 
 
     @Override
-    public void setImageResource(int resId) {
+    public void setImageResource(int resId)
+    {
         super.setImageResource(resId);
         handleImageChange();
     }
 
 
     @Override
-    public void setImageURI(Uri uri) {
+    public void setImageURI(Uri uri)
+    {
         super.setImageURI(uri);
         handleImageChange();
     }
 
 
     @Override
-    public void setImageDrawable(Drawable drawable) {
+    public void setImageDrawable(Drawable drawable)
+    {
         super.setImageDrawable(drawable);
         handleImageChange();
     }
 
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    {
         super.onSizeChanged(w, h, oldw, oldh);
-        restart();
+
+        //restart();
+        handleResize();
     }
 
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas) {
         Drawable d = getDrawable();
         if (!mPaused && d != null) {
             if (mDrawableRect.isEmpty()) {
@@ -159,7 +174,9 @@ public class KenBurnsView extends ImageView {
                     startNewTransition();
                 }
 
-                if (mCurrentTrans.getDestinyRect() != null) { // If null, it's supposed to stop.
+                if (mCurrentTrans.getDestinationRect() != null)
+                {
+                    // If null, it's supposed to stop.
                     mElapsedTime += System.currentTimeMillis() - mLastFrameTime;
                     RectF currentRect = mCurrentTrans.getInterpolatedRect(mElapsedTime);
 
@@ -167,10 +184,12 @@ public class KenBurnsView extends ImageView {
                     float heightScale = mDrawableRect.height() / currentRect.height();
                     // Scale to make the current rect match the smallest drawable dimension.
                     float currRectToDrwScale = Math.min(widthScale, heightScale);
+
                     // Scale to make the current rect match the viewport bounds.
                     float vpWidthScale = mViewportRect.width() / currentRect.width();
                     float vpHeightScale = mViewportRect.height() / currentRect.height();
                     float currRectToVpScale = Math.min(vpWidthScale, vpHeightScale);
+
                     // Combines the two scales to fill the viewport with the current rect.
                     float totalScale = currRectToDrwScale * currRectToVpScale;
 
@@ -219,7 +238,8 @@ public class KenBurnsView extends ImageView {
     /**
      * Creates a new transition and starts over.
      */
-    public void restart() {
+    public void restart()
+    {
         int width = getWidth();
         int height = getHeight();
 
@@ -233,12 +253,26 @@ public class KenBurnsView extends ImageView {
         startNewTransition();
     }
 
+    private void handleResize()
+    {
+        int width = getWidth();
+        int height = getHeight();
+
+        if (width == 0 || height == 0) {
+            return; // Can't call handleResize() when view area is zero.
+        }
+
+        updateViewport(width, height);
+
+    }
+
 
     /**
      * Checks whether this view has bounds.
      * @return
      */
-    private boolean hasBounds() {
+    private boolean hasBounds()
+    {
         return !mViewportRect.isEmpty();
     }
 
@@ -247,7 +281,8 @@ public class KenBurnsView extends ImageView {
      * Fires a start event on {@link #mTransitionListener};
      * @param transition the transition that just started.
      */
-    private void fireTransitionStart(Transition transition) {
+    private void fireTransitionStart(Transition transition)
+    {
         if (mTransitionListener != null && transition != null) {
             mTransitionListener.onTransitionStart(transition);
         }
@@ -258,7 +293,8 @@ public class KenBurnsView extends ImageView {
      * Fires an end event on {@link #mTransitionListener};
      * @param transition the transition that just ended.
      */
-    private void fireTransitionEnd(Transition transition) {
+    private void fireTransitionEnd(Transition transition)
+    {
         if (mTransitionListener != null && transition != null) {
             mTransitionListener.onTransitionEnd(transition);
         }
@@ -269,7 +305,8 @@ public class KenBurnsView extends ImageView {
      * Sets the {@link TransitionGenerator} to be used in animations.
      * @param transgen the {@link TransitionGenerator} to be used in animations.
      */
-    public void setTransitionGenerator(TransitionGenerator transgen) {
+    public void setTransitionGenerator(TransitionGenerator transgen)
+    {
         mTransGen = transgen;
         startNewTransition();
     }
@@ -280,7 +317,8 @@ public class KenBurnsView extends ImageView {
      * @param width the new viewport with.
      * @param height the new viewport height.
      */
-    private void updateViewport(float width, float height) {
+    private void updateViewport(float width, float height)
+    {
         mViewportRect.set(0, 0, width, height);
     }
 
@@ -289,12 +327,17 @@ public class KenBurnsView extends ImageView {
      * Updates the drawable bounds rect. This must be called every time the drawable
      * associated to this view changes.
      */
-    private void updateDrawableBounds() {
-        if (mDrawableRect == null) {
+    private void updateDrawableBounds()
+    {
+        if (mDrawableRect == null)
+        {
             mDrawableRect = new RectF();
         }
+
         Drawable d = getDrawable();
-        if (d != null && d.getIntrinsicHeight() > 0 && d.getIntrinsicWidth() > 0) {
+
+        if (d != null && d.getIntrinsicHeight() > 0 && d.getIntrinsicWidth() > 0)
+        {
             mDrawableRect.set(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
         }
     }
@@ -304,7 +347,8 @@ public class KenBurnsView extends ImageView {
      * This method is called every time the underlying image
      * is changed.
      */
-    private void handleImageChange() {
+    private void handleImageChange()
+    {
         updateDrawableBounds();
         /* Don't start a new transition if this event
          was fired during the super constructor execution.
@@ -316,7 +360,8 @@ public class KenBurnsView extends ImageView {
     }
 
 
-    public void setTransitionListener(TransitionListener transitionListener) {
+    public void setTransitionListener(TransitionListener transitionListener)
+    {
         mTransitionListener = transitionListener;
     }
 
@@ -324,7 +369,8 @@ public class KenBurnsView extends ImageView {
     /**
      * Pauses the Ken Burns Effect animation.
      */
-    public void pause() {
+    public void pause()
+    {
         mPaused = true;
     }
 
@@ -332,7 +378,8 @@ public class KenBurnsView extends ImageView {
     /**
      * Resumes the Ken Burns Effect animation.
      */
-    public void resume() {
+    public void resume()
+    {
         mPaused = false;
         // This will make the animation to continue from where it stopped.
         mLastFrameTime = System.currentTimeMillis();
@@ -343,7 +390,8 @@ public class KenBurnsView extends ImageView {
     /**
      * A transition listener receives notifications when a transition starts or ends.
      */
-    public interface TransitionListener {
+    public interface TransitionListener
+    {
         /**
          * Notifies the start of a transition.
          * @param transition the transition that just started.

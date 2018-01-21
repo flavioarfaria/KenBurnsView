@@ -48,14 +48,22 @@ public class Transition {
     private Interpolator mInterpolator;
 
 
-    public Transition(RectF srcRect, RectF dstRect, long duration, Interpolator interpolator) {
-        if (!MathUtils.haveSameAspectRatio(srcRect, dstRect)) {
-            throw new IncompatibleRatioException();
-        }
-        mSrcRect = srcRect;
-        mDstRect = dstRect;
+    public Transition(RectF srcRect, RectF dstRect, long duration, Interpolator interpolator)
+    {
+        // Scaling the viewport can result in 1 transition where the aspect ratio is not the same
+        // but that's OK since this transition will fix it.  Throwing an exception that never gets
+        // caught is simply not a good idea.
+
+        // if (!MathUtils.haveSameAspectRatio(srcRect, dstRect))
+        // {
+        //      throw new IncompatibleRatioException();
+        //}
+
         mDuration = duration;
         mInterpolator = interpolator;
+
+        mSrcRect = srcRect;
+        mDstRect = dstRect;
 
         // Precomputes a few variables to avoid doing it in onDraw().
         mWidthDiff = dstRect.width() - srcRect.width();
@@ -69,7 +77,8 @@ public class Transition {
      * Gets the rect that will take the scene when a Ken Burns transition starts.
      * @return the rect that starts the transition.
      */
-    public RectF getSourceRect() {
+    public RectF getSourceRect()
+    {
         return mSrcRect;
     }
 
@@ -78,8 +87,27 @@ public class Transition {
      * Gets the rect that will take the scene when a Ken Burns transition ends.
      * @return the rect that ends the transition.
      */
-    public RectF getDestinyRect() {
+    public RectF getDestinationRect()
+    {
         return mDstRect;
+    }
+
+    public void setDestinationRect(RectF a_rect)
+    {
+        this.mDstRect = a_rect;
+    }
+
+    public void setSourceRect(RectF a_rect)
+    {
+        this.mSrcRect = a_rect;
+    }
+
+    public void recompute()
+    {
+        mWidthDiff = mDstRect.width() - mSrcRect.width();
+        mHeightDiff = mDstRect.height() - mSrcRect.height();
+        mCenterXDiff = mDstRect.centerX() - mSrcRect.centerX();
+        mCenterYDiff = mDstRect.centerY() - mSrcRect.centerY();
     }
 
 
@@ -88,7 +116,8 @@ public class Transition {
      * in the current frame.
      * @param elapsedTime the elapsed time since this transition started.
      */
-    public RectF getInterpolatedRect(long elapsedTime) {
+    public RectF getInterpolatedRect(long elapsedTime)
+    {
         float elapsedTimeFraction = elapsedTime / (float) mDuration;
         float interpolationProgress = Math.min(elapsedTimeFraction, 1);
         float interpolation = mInterpolator.getInterpolation(interpolationProgress);
@@ -104,6 +133,7 @@ public class Transition {
         float bottom = top + currentHeight;
 
         mCurrentRect.set(left, top, right, bottom);
+
         return mCurrentRect;
     }
 
