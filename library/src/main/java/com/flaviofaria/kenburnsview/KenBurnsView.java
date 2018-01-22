@@ -166,7 +166,7 @@ public class KenBurnsView extends DrawOnImageView
     @Override
     public void onDraw(Canvas canvas) {
         Drawable d = getDrawable();
-        if (!mPaused && d != null) {
+        if (ScaleType.MATRIX == getScaleType() && !mPaused && d != null) {
             if (mDrawableRect.isEmpty()) {
                 updateDrawableBounds();
             } else if (hasBounds()) {
