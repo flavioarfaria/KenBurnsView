@@ -107,11 +107,6 @@ Icon                                                                            
 <img src="https://lh3.googleusercontent.com/YyxTvXcnP1TlsjioE9kucJAuFjXAGBRVUea2_-cGu5HBkbgJ57hzv6FymRdMQA7oCj0=w48-rw" /> | [AppsTracker][AppsTracker]
 <img src="https://lh3.googleusercontent.com/HoXI1vDFDQ4UI7yI0ycPnRy7LlM4-FC06uRwiXh2Uenls5n751G5_5jzxyVhMnovRzI=w48-rw" /> | [Pakistani Recipes in Urdu اردو][PakistaniRecipes]
 
-Contribution
-------------
-
-Want to contribute? Please, feel free to create a pull request! ;)
-
 License
 -------
 
