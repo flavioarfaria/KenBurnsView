@@ -106,6 +106,7 @@ Icon                                                                            
 <img src="https://lh3.googleusercontent.com/yZaRg3-_ghY4k7Mp6WMMsOI1DXOAsaD77pRKjp4Q8xutmQjIK4u91ZW6ThuEHx3T3WE=w48-rw" /> | [{Soft} Skills][SoftSkills]
 <img src="https://lh3.googleusercontent.com/YyxTvXcnP1TlsjioE9kucJAuFjXAGBRVUea2_-cGu5HBkbgJ57hzv6FymRdMQA7oCj0=w48-rw" /> | [AppsTracker][AppsTracker]
 <img src="https://lh3.googleusercontent.com/HoXI1vDFDQ4UI7yI0ycPnRy7LlM4-FC06uRwiXh2Uenls5n751G5_5jzxyVhMnovRzI=w48-rw" /> | [Pakistani Recipes in Urdu اردو][PakistaniRecipes]
+<img src="https://lh3.googleusercontent.com/l3srrFGOf2MOFfxwt2HViGO0_-Dd_EfPXOVJUQ4aPjyKjgY3GOLsj12NS2n69V0aNKY=s48-rw" /> | [Eva: Everything for Telegram][EvaApp]
 
 License
 -------
@@ -124,4 +125,6 @@ License
 [JustFood]:	        https://play.google.com/store/apps/details?id=scientist.jobless.foodmana
 [SoftSkills]:	    https://play.google.com/store/apps/details?id=com.fanaticdevs.androider
 [AppsTracker]:      https://play.google.com/store/apps/details?id=com.it.appstracker
+[EvaApp]:      https://play.google.com/store/apps/details?id=com.sunshine.eva
 [PakistaniRecipes]:      https://play.google.com/store/apps/details?id=com.kookydroidapps.pakistanifoodrecipes.urdu
+
