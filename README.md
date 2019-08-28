@@ -93,20 +93,6 @@ Questions
 
 You can ask any question on Stack Overflow using the [android-kenburnsview][StackOverflowTag] tag.
 
-Used by
--------
-
-If you want your app listed here, drop me a message on [Google+][Gplus].
-
-Icon                                                                                                         | App link
--------------------------------------------------------------------------------------------------------------|-----------
-<img src="https://lh6.ggpht.com/Lp1vxT8QfbbJ_-UNSU9_AUpCzg3ekf1hfiKs9zjadSKM3Jlbk2eUPps41GVlzWV-Xzw=w48" />   | [FotMob][FotMob]
-<img src="https://lh3.ggpht.com/txlZ48RgPe8afIA39J-IqzSZqsbt2Dz3sht7YAqKbVTIoEi6e5KGG0s1NlIgwz8fQj-n=w48" /> | [Getaways by Groupon][Getaways]
-<img src="https://lh3.googleusercontent.com/oGf7pFtEvi6OwLRiR75EI28bY3_AgUfS0Ci7DzuwjCla4jn5d_EIzsESRF5zJnUDXYqX=w48-rw" /> | [just food][JustFood]
-<img src="https://lh3.googleusercontent.com/yZaRg3-_ghY4k7Mp6WMMsOI1DXOAsaD77pRKjp4Q8xutmQjIK4u91ZW6ThuEHx3T3WE=w48-rw" /> | [{Soft} Skills][SoftSkills]
-<img src="https://lh3.googleusercontent.com/YyxTvXcnP1TlsjioE9kucJAuFjXAGBRVUea2_-cGu5HBkbgJ57hzv6FymRdMQA7oCj0=w48-rw" /> | [AppsTracker][AppsTracker]
-<img src="https://lh3.googleusercontent.com/HoXI1vDFDQ4UI7yI0ycPnRy7LlM4-FC06uRwiXh2Uenls5n751G5_5jzxyVhMnovRzI=w48-rw" /> | [Pakistani Recipes in Urdu اردو][PakistaniRecipes]
-
 License
 -------
 
@@ -118,10 +104,3 @@ License
 [Maven]:            http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.flaviofaria%22%20AND%20a%3A%22kenburnsview%22
 [StackOverflowTag]: http://stackoverflow.com/questions/tagged/android-kenburnsview
 [License]:          http://www.apache.org/licenses/LICENSE-2.0.html
-[GPlus]:            https://plus.google.com/+Fl%C3%A1vioFaria1
-[FotMob]:           https://play.google.com/store/apps/details?id=com.mobilefootie.wc2010
-[Getaways]:         https://play.google.com/store/apps/details?id=com.groupon.travel
-[JustFood]:	        https://play.google.com/store/apps/details?id=scientist.jobless.foodmana
-[SoftSkills]:	    https://play.google.com/store/apps/details?id=com.fanaticdevs.androider
-[AppsTracker]:      https://play.google.com/store/apps/details?id=com.it.appstracker
-[PakistaniRecipes]:      https://play.google.com/store/apps/details?id=com.kookydroidapps.pakistanifoodrecipes.urdu
