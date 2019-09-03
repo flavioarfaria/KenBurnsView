@@ -15,6 +15,7 @@
  */
 package com.flaviofaria.kenburnsview;
 
+import android.graphics.Rect;
 import android.graphics.RectF;
 
 /**
@@ -59,5 +60,66 @@ public final class MathUtils {
      */
     protected static float getRectRatio(RectF rect) {
         return rect.width() / rect.height();
+    }
+
+    /**
+     * Computes the rect inside the given rect for the aspect ratio.
+     * @param a_currentRect the rect to find the inside rect of.
+     * @param a_desiredAspect the aspect ratio to use
+     * @return the rect aspect ratio.
+     */
+    protected static RectF getInsideRect(RectF a_currentRect, float a_desiredAspect)
+    {
+        /*
+            Example:
+
+                a_currentRect.left = 0;
+                a_currentRect.right = 4;
+                a_currentRect.top = 0;
+                a_currentRect.bottom = 3;
+
+                a_desiredAspect = 1.777777777777778f;
+
+                Aspect ration of a 16:9 Rect = 1.777777777777778
+                Inverse aspect of a 16:9 Rect = 0.5625
+
+                Given a 4:3 Rect at the origin the result would be
+
+                l_currentAspect = 1.333333333333333
+
+                l_newWidth = 4.0f
+
+                l_newHeight = 3.0f  * 0.5625
+         */
+
+
+        float l_currentAspect = a_currentRect.width() / a_currentRect.height();
+
+        float l_inverseAspect = 1.0f / a_desiredAspect;
+
+        float l_newWidth = 0.0f;
+        float l_newHeight = 0.0f;
+
+        RectF l_newRect = new RectF();
+
+        if (a_desiredAspect > 1.0f)
+        {
+            l_newWidth = a_currentRect.width();
+            l_newHeight = a_currentRect.width()  * l_inverseAspect;
+        }
+        else
+        {
+            l_newWidth = a_currentRect.height() * l_inverseAspect;
+            l_newHeight = a_currentRect.height();
+        }
+
+        l_newRect.left = a_currentRect.centerX() - (l_newWidth / 2.0f);
+        l_newRect.right = a_currentRect.centerX() + (l_newWidth / 2.0f);
+        l_newRect.top = a_currentRect.centerY() - (l_newHeight / 2.0f);
+        l_newRect.bottom = a_currentRect.centerY() + (l_newHeight / 2.0f);
+
+        float l_newRectAspect = MathUtils.getRectRatio(l_newRect);
+
+        return l_newRect;
     }
 }

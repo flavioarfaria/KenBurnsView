@@ -66,14 +66,25 @@ public class RandomTransitionGenerator implements TransitionGenerator {
         RectF dstRect = null;
 
         if (!firstTransition) {
-            dstRect = mLastGenTrans.getDestinyRect();
+            dstRect = mLastGenTrans.getDestinationRect();
             drawableBoundsChanged = !drawableBounds.equals(mLastDrawableBounds);
             viewportRatioChanged = !MathUtils.haveSameAspectRatio(dstRect, viewport);
         }
 
-        if (dstRect == null || drawableBoundsChanged || viewportRatioChanged) {
+        if (dstRect == null || drawableBoundsChanged)
+        {
             srcRect = generateRandomRect(drawableBounds, viewport);
-        } else {
+        }
+        // A scaling of the viewport can result in the aspect ratio being out of symc and a new
+        // random transiton results in a jump in the effect.  Instead just accept that the aspect ratio
+        // is out of sync and let the transition take the aspect ratio back into sync.
+        else if (viewportRatioChanged)
+        {
+            // The next transition will fix the aspect ratio so we can relax
+            srcRect = dstRect;
+            // srcRect = MathUtils.getInsideRect(dstRect, MathUtils.getRectRatio(viewport));
+        }
+        else {
             /* Sets the destiny rect of the last transition as the source one
              if the current drawable has the same dimensions as the one of
              the last transition. */
