@@ -72,7 +72,6 @@ public class KenBurnsView extends ImageView {
      * or after the super class constructor returns. */
     private boolean mInitialized;
 
-
     public KenBurnsView(Context context) {
         this(context, null);
     }
@@ -116,28 +115,36 @@ public class KenBurnsView extends ImageView {
     @Override
     public void setImageBitmap(Bitmap bm) {
         super.setImageBitmap(bm);
-        handleImageChange();
+        if (bm != null) {
+            handleImageChange();
+        }
     }
 
 
     @Override
     public void setImageResource(int resId) {
         super.setImageResource(resId);
-        handleImageChange();
+        if (resId != 0) {
+            handleImageChange();
+        }
     }
 
 
     @Override
     public void setImageURI(Uri uri) {
         super.setImageURI(uri);
-        handleImageChange();
+        if (uri != null) {
+            handleImageChange();
+        }
     }
 
 
     @Override
     public void setImageDrawable(Drawable drawable) {
         super.setImageDrawable(drawable);
-        handleImageChange();
+        if (drawable != null && drawable.getIntrinsicHeight() > 0 && drawable.getIntrinsicWidth() > 0) {
+            handleImageChange();
+        }
     }
 
 
@@ -181,6 +188,13 @@ public class KenBurnsView extends ImageView {
                        of the current rect into the entire view. */
                     mMatrix.reset();
                     mMatrix.postTranslate(-mDrawableRect.width() / 2, -mDrawableRect.height() / 2);
+                    /* Center the drawable Rect if it is not already cropped to match the
+                        viewport dimensions. Only apply if image is uncropped.
+                     */
+                    if (!mTransGen.isCroppingImage()) {
+                        mMatrix.postTranslate((mViewportRect.width() - mDrawableRect.width()) / 2,
+                                (mViewportRect.height() - mDrawableRect.height()) / 2);
+                    }
                     mMatrix.postScale(totalScale, totalScale);
                     mMatrix.postTranslate(translX, translY);
 
@@ -239,7 +253,7 @@ public class KenBurnsView extends ImageView {
      * @return
      */
     private boolean hasBounds() {
-        return !mViewportRect.isEmpty();
+        return mDrawableRect.right > 0 && mDrawableRect.bottom > 0 && !mViewportRect.isEmpty();
     }
 
 

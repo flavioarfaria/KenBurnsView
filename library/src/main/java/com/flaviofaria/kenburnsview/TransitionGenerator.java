@@ -29,4 +29,10 @@ public interface TransitionGenerator {
      */
     public Transition generateNextTransition(RectF drawableBounds, RectF viewport);
 
+    /**
+     * Identifies whether or not the transition generator is cropping the image. If not, the
+     * resulting image should be centered inside the {@link KenBurnsView}.
+     * @return a {@link boolean} object that identifies whether or not the image is cropped
+     */
+    public boolean isCroppingImage();
 }
